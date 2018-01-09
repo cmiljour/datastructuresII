@@ -87,13 +87,14 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
         return x;
     }
 
-    /**
-     * size returns the number of key-value pairs in the symbol table.
-     * it returns 0 if the symbol table is empty.
-     */
-   
-    public int size () {
-    	return -1;  // ToDo
+     public int size () {
+    	int count = 0;
+    	Node x = first;
+		while (x != null) {
+			x = x.next;
+			count++;
+		}
+    	return count;  // ToDo
     }
     /**
      * secondMaxKey returns the second maximum key in the symbol table.
@@ -101,7 +102,47 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
      *  See if you can write it with only one loop
      */
     public Key secondMaxKey () {
-    	return null; // TODO
+    	Node x = first;
+    	if (x == null || x.next == null) {
+    		return null;
+    	}
+    	Key max = x.key;
+    	Key secondMax = x.next.key;
+    	
+    	while (x.next != null ) {
+    		
+    		// I had to do some unfortunate casting key to string to char to int to get ASCII value.
+    		// I didn't find a more efficient way in time.
+//    		String stringKey1 = "" + max;
+//    		String stringKey2 = "" + x.next.key;
+//    		char charKey1 = stringKey1.charAt(0);
+//    		char charKey2 = stringKey2.charAt(0);
+//    		int key1 = (int)charKey1;
+//    		int key2 = (int)charKey2;
+//    		
+//    		// More casting of the second maximum value to int to get ASCII value
+//    		String stringSecondMaxKey = "" + secondMax;
+//    		char charSecondMaxKey = stringSecondMaxKey.charAt(0);
+//    		int secondMaxKey = (int)charSecondMaxKey;
+    		
+    		int key1CompareToKey2 = max.compareTo(x.next.key);
+    		int secondMaxCompareToKey2 = secondMax.compareTo(x.next.key);
+    		
+    		// compare ASCII value of Node 1 against Node 2 
+    		if  ( key1CompareToKey2 < 0 ) {
+    			secondMax = max;
+    			max = x.next.key;
+    		}
+    		// Compare ASCII value of Node 1 against Node 2 and 
+    		// second maximum key against key 2
+    		if (key1CompareToKey2 > 0 && secondMaxCompareToKey2 < 0) {
+    			secondMax = x.next.key;
+    		}
+    		// move to the next node when finished
+    		x = x.next;
+    	}
+    
+    	return secondMax; // TODO
     }
 
 
@@ -170,7 +211,12 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
      */
     public LinkedListST<String, Integer> inverse () {
     	
-    	for (Node x = first ; x != null; x = x.next) {
+    	LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
+    	Node x = first;
+    	
+    	
+    	for (x = first ; x != null; x = x.next) {
+    		
     		
     		
 	    	int NodeValueToInt = (int) x.val;
