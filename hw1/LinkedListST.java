@@ -110,21 +110,7 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
     	Key secondMax = x.next.key;
     	
     	while (x.next != null ) {
-    		
-    		// I had to do some unfortunate casting key to string to char to int to get ASCII value.
-    		// I didn't find a more efficient way in time.
-//    		String stringKey1 = "" + max;
-//    		String stringKey2 = "" + x.next.key;
-//    		char charKey1 = stringKey1.charAt(0);
-//    		char charKey2 = stringKey2.charAt(0);
-//    		int key1 = (int)charKey1;
-//    		int key2 = (int)charKey2;
-//    		
-//    		// More casting of the second maximum value to int to get ASCII value
-//    		String stringSecondMaxKey = "" + secondMax;
-//    		char charSecondMaxKey = stringSecondMaxKey.charAt(0);
-//    		int secondMaxKey = (int)charSecondMaxKey;
-    		
+    		    		
     		int key1CompareToKey2 = max.compareTo(x.next.key);
     		int secondMaxCompareToKey2 = secondMax.compareTo(x.next.key);
     		
@@ -209,15 +195,10 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
      * inverse returns the inverse of this symbol table.
      * if the symbol table contains duplicate values, you can use any of the keys for the inverse
      */
-    public LinkedListST<String, Integer> inverse () {
+    public LinkedListST<String, Integer> inverse () {  	
     	
-    	LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
-    	Node x = first;
-    	
-    	
-    	for (x = first ; x != null; x = x.next) {
-    		
-    		
+    	for (Node x = first ; x != null; x = x.next) {
+    		   		
     		
 	    	int NodeValueToInt = (int) x.val;
 	    	String intNodeValueToString = Integer.toString(NodeValueToInt);

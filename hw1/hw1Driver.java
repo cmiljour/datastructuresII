@@ -26,15 +26,15 @@ public class hw1Driver {
 			
 			// the simple testing code from the textbook pg 370
 			// you may delete/comment this out if you wish
-			LinkedListST<String, Integer> st = new LinkedListST<>();
-			StdIn.fromFile("data/tinyST.txt");
-			for (int i = 0; !StdIn.isEmpty(); i++)
-			{
-				String key = StdIn.readString();
-				st.put(key, i);
-			}
-			for (String s : st.keys())
-				StdOut.println(s + " " + st.get(s));
+//			LinkedListST<String, Integer> st = new LinkedListST<>();
+//			StdIn.fromFile("data/tinyST.txt");
+//			for (int i = 0; !StdIn.isEmpty(); i++)
+//			{
+//				String key = StdIn.readString();
+//				st.put(key, i);
+//			}
+//			for (String s : st.keys())
+//				StdOut.println(s + " " + st.get(s));
 			
 			// To do:   call you testing functions with your test cases. 
 			//  label each test case with a comment describing what you are testing for.
@@ -102,11 +102,11 @@ public class hw1Driver {
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}
-			StdOut.println("before");
+			StdOut.println("before LL inverse");
 			for (String s : aList.keys())
 				StdOut.println(s + " " + aList.get(s));
 			aList.inverse();
-			StdOut.println("after");
+			StdOut.println("after LL inverse");
 			for (String s : aList.keys())
 				StdOut.println(s + " " + aList.get(s));
 			
