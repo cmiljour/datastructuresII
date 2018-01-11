@@ -195,20 +195,15 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
      * inverse returns the inverse of this symbol table.
      * if the symbol table contains duplicate values, you can use any of the keys for the inverse
      */
-    public LinkedListST<String, Integer> inverse () {  	
+    public LinkedListST<Value, Key> inverse () {
+    	LinkedListST<Value, Key> bList = new LinkedListST<Value, Key>();
     	
     	for (Node x = first ; x != null; x = x.next) {
-    		   		
+    		bList.put(x.val, x.key);
     		
-	    	int NodeValueToInt = (int) x.val;
-	    	String intNodeValueToString = Integer.toString(NodeValueToInt);
-	    	String nodeKeyToString = (String)x.key;
-	    	
-	    	x.key = (Key) intNodeValueToString;
-	    	x.val = (Value) nodeKeyToString;
     	}
     	
-    	return null; // TODO
+    	return bList; // TODO
     }
 
 	public Iterable<Key>  keys() {

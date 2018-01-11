@@ -99,16 +99,17 @@ public class hw1Driver {
 		//See note about testing inverse function
 		public static void inverseTest(String vals) {
 			LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
+			LinkedListST<String,Integer> bList = new LinkedListST<String,Integer>();
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}
 			StdOut.println("before LL inverse");
 			for (String s : aList.keys())
 				StdOut.println(s + " " + aList.get(s));
-			aList.inverse();
+			bList = aList.inverse();
 			StdOut.println("after LL inverse");
-			for (String s : aList.keys())
-				StdOut.println(s + " " + aList.get(s));
+			for (Int s : bList.keys())
+				StdOut.println(s + " " + bList.get(s));
 			
 		}
 }
