@@ -201,10 +201,8 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 			}
 			
 			if(key.compareTo(keys[mid]) > 0) {
-				
 				return keyBinarySearch(key, mid + 1, hi);
 			}
-			
 			
 			if(key.compareTo(keys[mid]) < 0) {
 				return keyBinarySearch(key, lo, mid - 1);
@@ -239,13 +237,12 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 			return keyBinarySearch(key, lo, mid - 1);
 		}
 		
-		
 		return 0;
 
 		// TODO3 : logarithmic time implementation
 	}
 
-	/**
+	/**floorOfKey
 	 * Linear time implementation of rank
 	 */
 	private int linearTimeRank(Key key) {
@@ -259,14 +256,34 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		if ( (Arrays.equals(vals, x.vals)) && (Arrays.equals(keys, x.keys)) ) {
 			return true;
 		}
-			return false;
+		
+		return false;
 	}
 	/**
 	 * floor returns the largest key in the symbol table that is less than or equal to key.
 	 * it returns null if there is no such key.
 	 */
 	public Key floor(Key key) {
-		return null; // TODO5
+		
+		Key minFloorKey = null;
+		
+		for (int i = 0; i < keys.length ; i++) {
+
+			
+			if(key.compareTo(keys[i]) == 0) {
+				return keys[i];
+			}
+			
+			if (key.compareTo(keys[i]) > 0 && minFloorKey == null) {
+				minFloorKey = keys[i];
+			}
+			
+			if (key.compareTo(keys[i]) > 0 && minFloorKey.compareTo(keys[i]) < 0) {
+				minFloorKey = keys[i];
+			}
+		}
+		
+		return minFloorKey; // TODO5
 
 	}
 	/**
@@ -331,6 +348,10 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 //		testEquals("ABCDEFGHI", "123456789", "ABCDEFGHI", "123456789");
 //		testEquals("ACDE", "1235", "ACDE", "1245");
 //		testEquals("ABCD", "1234", "abcd", "1234");
+		
+		testFloor("ABCDEF", "123456", "D", "D");
+		testFloor("ABCEF", "12346", "D", "C");
+		testFloor("ABCDEF", "123456", "Z", "F");
 	}
 	/*
 	 * Test the rank function. 
@@ -351,7 +372,7 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * Test the Put function. 
 	 * build a symbol table from the input key,val strings
 	 * (keyData characters must be in sorted order)
-	 * then call the rank function, compare to the expected answer
+	 * then call the rank function, compare to the expected answertestFloor("ABCDEF", "123456", "D", "D");
 	 */
 	public static void testPut(String keyInData, String valInData, 
 			                   String putKey, String putVal, 
@@ -400,8 +421,18 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		StdOut.format("Symbol Table 1 %s is equal to Symbol Table 2 %s\n", table1, table2);
 		else
 		StdOut.format("Something went wrong.  Symbol Table 1 %s is not equal to Symbol Table 2 %s\n", table1, table2);
+	}
+	
+	public static void testFloor(String keyInData, String valInData, String floorOfKey, String expectedKey) {
+		SortedArrayST<String, String> st1 = from(keyInData, valInData);
 
-}
+		String floor = st1.floor(floorOfKey);
+		
+		if (floor.equals(expectedKey))  // test passes
+		StdOut.format("The floor of %s is equal to the expected key %s\n", floorOfKey, expectedKey);
+		else
+		StdOut.format("Something went wrong.  The floor of %s is not equal to the expected key %s\n", floorOfKey, expectedKey);
+	}
 	
 
 }
