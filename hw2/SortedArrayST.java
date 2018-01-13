@@ -161,8 +161,15 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * in effect removing the key and value at index r 
 	 */
 	private void shiftLeft(int r) {
+		Key [] keyCopyArr;
+		Value [] valCopyArr; 
 		
-		
+		for (int i = r; i < keys.length - 1; i++ ) {
+			keys[i] = keys[i + 1];
+			vals[i] = vals[i + 1];
+		}
+		keys = Arrays.copyOf(keys, (keys.length - 1));
+		vals = Arrays.copyOf(vals, (vals.length - 1));
 		// TODO2
 	
 	}
@@ -170,8 +177,70 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	/**
 	 * rank returns the number of keys in this symbol table that is less than the given key. 
 	 */
+	
+	
+	public int keyBinarySearch (Key key, int lo, int hi) {
+		
+		if (hi >= lo) {
+			
+			int mid = lo + (hi - lo)/2;
+			
+			if (mid == 0) {
+				if (key.compareTo(keys[mid]) == 0) {
+					return mid;
+				}
+				else if (key.compareTo(keys[mid]) < 0) {
+					return 0;
+				}
+				
+//				else return 1;
+			}
+			
+			if (key.compareTo(keys[mid]) == 0) {
+				return mid;
+			}
+			
+			if(key.compareTo(keys[mid]) > 0) {
+				
+				return keyBinarySearch(key, mid + 1, hi);
+			}
+			
+			
+			if(key.compareTo(keys[mid]) < 0) {
+				return keyBinarySearch(key, lo, mid - 1);
+			}
+			
+		}
+		
+		return lo;
+	}
+	
 	public int rank(Key key) {
-		return linearTimeRank(key);
+		
+		int hi = keys.length - 1;
+		int lo = 0;
+		int mid =  lo + (hi - lo)/2;
+		
+		if(key.compareTo(keys[hi]) > 0 ) {
+			return keys.length;
+		}
+		
+		if(key.compareTo(keys[mid]) > 0 ) {
+			return keyBinarySearch(key, mid+1, hi);
+		}
+		
+		if(key.compareTo(keys[mid]) == 0 ) {
+			
+			return mid;
+		}
+		
+		if(key.compareTo(keys[mid]) < 0) {
+			
+			return keyBinarySearch(key, lo, mid - 1);
+		}
+		
+		
+		return 0;
 
 		// TODO3 : logarithmic time implementation
 	}
@@ -186,9 +255,11 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	}
 	// Compare two  ST for equality
 	// TODO4
-	public boolean equals(Object x) {
-
-		return true;
+	public boolean equals(SortedArrayST<String, String> x) {
+		if ( (Arrays.equals(vals, x.vals)) && (Arrays.equals(keys, x.keys)) ) {
+			return true;
+		}
+			return false;
 	}
 	/**
 	 * floor returns the largest key in the symbol table that is less than or equal to key.
@@ -231,31 +302,35 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		// TODO Auto-generated method stub
 	
 		// Testing the rank function
-		testRank("A",0,"BDFK","1234");
-		testRank("B",0,"BDFK","1234");
-		testRank("C",1,"BDFK","1234");
-		testRank("D",1,"BDFK","1234");
-		testRank("K",3,"BDFK","1234");
-		testRank("Z",4,"BDFK","1234");
+//		testRank("A",0,"BDFK","1234");
+//		testRank("B",0,"BDFK","1234");
+//		testRank("C",1,"BDFK","1234");
+//		testRank("F",2,"BDFK","1234");
+//		testRank("K",3,"BDFK","1234");
+//		testRank("Z",4,"BDFK","1234");
+//		testRank("H",7,"ABCDEFGHI","123456789");
 		
 		// Testing the delete function  (actually testing your shiftLeft implementation)	
-		testDelete("ABDFK","12345", "A","BDFK","2345");
-		testDelete("ABDFK","12345", "B","ADFK","1345");
-		testDelete("ABDFK","12345", "K","ABDF","1234");
+//		testDelete("ABDFK","12345", "A","BDFK","2345");
+//		testDelete("ABDFK","12345", "B","ADFK","1345");
+//		testDelete("ABDFK","12345", "K","ABDF","1234");
 		// TO DO   add two  additional test cases
 		//    include comments to describe what your case is checking for
 		
 
-		testPut("AEIOU","13456", "B","2", "ABEIOU","123456");
-		// empty input
-		testPut("AEIOU","13456", "","", "AEIOU","13456");
-		// adding to end
-		testPut("UVWXY","45678", "Z","9", "UVWXYZ","456789");
-		// inverse key, value input, does it work?
-		testPut("AEIOU","13456", "1","Z", "1AEIOU","Z13456");
+//		testPut("AEIOU","13456", "B","2", "ABEIOU","123456");
+//		// empty input
+//		testPut("AEIOU","13456", "","", "AEIOU","13456");
+//		// adding to end
+//		testPut("UVWXY","45678", "Z","9", "UVWXYZ","456789");
+//		// inverse key, value input, does it work?
+//		testPut("AEIOU","13456", "1","Z", "1AEIOU","Z13456");
 		// TO DO   add three  additional test cases
 		//    include comments to describe what your case is checking for
-		
+//		testEquals("ABCDE", "12345", "ABCDE", "12345");
+//		testEquals("ABCDEFGHI", "123456789", "ABCDEFGHI", "123456789");
+//		testEquals("ACDE", "1235", "ACDE", "1245");
+//		testEquals("ABCD", "1234", "abcd", "1234");
 	}
 	/*
 	 * Test the rank function. 
@@ -307,12 +382,26 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 				actual.delete(delKey);
 		
 		
-				if ( actual.equals(expected))  // test passes
+				if ( (Arrays.equals(actual.vals, expected.vals)) && (Arrays.equals(actual.keys, expected.keys)) )  // test passes
 					StdOut.format("testDelete: Correct  Before %s delete:%s After: %s\n", keyInData, delKey, keyOutData);
 				else
 					StdOut.format("testDelete: *Error*  Before %s delete:%s After: %s\n", keyInData, delKey, keyOutData);
 			
 	}
+	
+	public static void testEquals(String key1, String val1, String key2, String val2) {
+		SortedArrayST<String, String> st1 = from(key1,val1);
+		SortedArrayST<String, String> st2 = from(key2, val2);
+		
+		String table1 = key1 + ": " + val1; 
+		String table2 = key2 + ": " + val2; 
+		
+		if (st1.equals(st2))  // test passes
+		StdOut.format("Symbol Table 1 %s is equal to Symbol Table 2 %s\n", table1, table2);
+		else
+		StdOut.format("Something went wrong.  Symbol Table 1 %s is not equal to Symbol Table 2 %s\n", table1, table2);
+
+}
 	
 
 }
