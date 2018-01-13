@@ -1,11 +1,9 @@
-Cory Miljour
-Data Structures II
-Wed Night Winter 2018
-
 sizeTest: Correct  String  Answer: 0
 sizeTest: Correct  String abcde Answer: 5
 rankTest: String vals bzcwd , How many less than j , Answer: 3
+rankTest: String vals bzcwd , How many less than a , Answer: 0
 floorTest: String vals codazn , What is the floor of p , Answer: o
+floorTest: String vals codazn , What is the floor of a , Answer: a
 before LL inverse
 g 6
 f 5
@@ -15,10 +13,11 @@ c 2
 b 1
 a 0
 after LL inverse
-6 g
-5 f
-4 e
-3 d
-2 c
-1 b
 0 a
+1 b
+2 c
+3 d
+4 e
+5 f
+6 g
+

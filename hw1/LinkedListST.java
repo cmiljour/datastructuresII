@@ -114,12 +114,12 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
     		int key1CompareToKey2 = max.compareTo(x.next.key);
     		int secondMaxCompareToKey2 = secondMax.compareTo(x.next.key);
     		
-    		// compare ASCII value of Node 1 against Node 2 
+    		// compare value of Node 1 against Node 2 
     		if  ( key1CompareToKey2 < 0 ) {
     			secondMax = max;
     			max = x.next.key;
     		}
-    		// Compare ASCII value of Node 1 against Node 2 and 
+    		// Compare value of Node 1 against Node 2 and 
     		// second maximum key against key 2
     		if (key1CompareToKey2 > 0 && secondMaxCompareToKey2 < 0) {
     			secondMax = x.next.key;
@@ -174,7 +174,7 @@ public class LinkedListST<Key extends Comparable<Key>, Value extends Comparable<
     		int compareKey = key.compareTo(x.key);
         	int compareFloor = floorKey.compareTo(x.key);
         	
-	    	if (compareKey > 0 && (compareFloor < 0 || compareFloor ==0 )) {
+	    	if (compareKey == 0 || compareKey > 0 && (compareFloor == 0 ||  compareFloor < 0)) {
 	    		floorKey = x.key;
 	    		isFloor = true;
 	    	}

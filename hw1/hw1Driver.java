@@ -42,7 +42,9 @@ public class hw1Driver {
 			sizeTest("",0);				// test size on an empty ST (symbol table)
 			sizeTest("abcde",5);        // test size on a non-empty ST
 			rankTest("bzcwd", "j");
+			rankTest("bzcwd", "a");
 			floorTest("codazn", "p");
+			floorTest("codazn", "a");
 			inverseTest("abcdefg");
 										// add more more test here
 
@@ -99,7 +101,7 @@ public class hw1Driver {
 		//See note about testing inverse function
 		public static void inverseTest(String vals) {
 			LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
-			LinkedListST<String,Integer> bList = new LinkedListST<String,Integer>();
+			LinkedListST<Integer,String> bList = new LinkedListST<Integer,String>();
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}
@@ -108,7 +110,7 @@ public class hw1Driver {
 				StdOut.println(s + " " + aList.get(s));
 			bList = aList.inverse();
 			StdOut.println("after LL inverse");
-			for (Int s : bList.keys())
+			for (Integer s : bList.keys())
 				StdOut.println(s + " " + bList.get(s));
 			
 		}
