@@ -291,7 +291,14 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * note that keys may not be in order (key1 may be larger than key2)
 	 */
 	public int countRange(Key key1, Key key2) {
-		return 0; // TODO6
+		
+		Integer key1Index = Arrays.asList(keys).indexOf(key1);
+		Integer key2Index = Arrays.asList(keys).indexOf(key2);
+		
+		Integer count = (key2Index - key1Index) + 1;
+		
+		
+		return count; // TODO6
 	}
 	
 	/*
@@ -319,39 +326,44 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		// TODO Auto-generated method stub
 	
 		// Testing the rank function
-//		testRank("A",0,"BDFK","1234");
-//		testRank("B",0,"BDFK","1234");
-//		testRank("C",1,"BDFK","1234");
-//		testRank("F",2,"BDFK","1234");
-//		testRank("K",3,"BDFK","1234");
-//		testRank("Z",4,"BDFK","1234");
-//		testRank("H",7,"ABCDEFGHI","123456789");
+		testRank("A",0,"BDFK","1234");
+		testRank("B",0,"BDFK","1234");
+		testRank("C",1,"BDFK","1234");
+		testRank("F",2,"BDFK","1234");
+		testRank("K",3,"BDFK","1234");
+		testRank("Z",4,"BDFK","1234");
+		testRank("H",7,"ABCDEFGHI","123456789");
 		
 		// Testing the delete function  (actually testing your shiftLeft implementation)	
-//		testDelete("ABDFK","12345", "A","BDFK","2345");
-//		testDelete("ABDFK","12345", "B","ADFK","1345");
-//		testDelete("ABDFK","12345", "K","ABDF","1234");
+		testDelete("ABDFK","12345", "A","BDFK","2345");
+		testDelete("ABDFK","12345", "B","ADFK","1345");
+		testDelete("ABDFK","12345", "K","ABDF","1234");
 		// TO DO   add two  additional test cases
 		//    include comments to describe what your case is checking for
 		
 
-//		testPut("AEIOU","13456", "B","2", "ABEIOU","123456");
-//		// empty input
-//		testPut("AEIOU","13456", "","", "AEIOU","13456");
-//		// adding to end
-//		testPut("UVWXY","45678", "Z","9", "UVWXYZ","456789");
-//		// inverse key, value input, does it work?
-//		testPut("AEIOU","13456", "1","Z", "1AEIOU","Z13456");
+		testPut("AEIOU","13456", "B","2", "ABEIOU","123456");
+		// empty input
+		testPut("AEIOU","13456", "","", "AEIOU","13456");
+		// adding to end
+		testPut("UVWXY","45678", "Z","9", "UVWXYZ","456789");
+		// inverse key, value input, does it work?
+		testPut("AEIOU","13456", "1","Z", "1AEIOU","Z13456");
 		// TO DO   add three  additional test cases
 		//    include comments to describe what your case is checking for
-//		testEquals("ABCDE", "12345", "ABCDE", "12345");
-//		testEquals("ABCDEFGHI", "123456789", "ABCDEFGHI", "123456789");
-//		testEquals("ACDE", "1235", "ACDE", "1245");
-//		testEquals("ABCD", "1234", "abcd", "1234");
+		testEquals("ABCDE", "12345", "ABCDE", "12345");
+		testEquals("ABCDEFGHI", "123456789", "ABCDEFGHI", "123456789");
+		testEquals("ACDE", "1235", "ACDE", "1245");
+		testEquals("ABCD", "1234", "abcd", "1234");
 		
 		testFloor("ABCDEF", "123456", "D", "D");
 		testFloor("ABCEF", "12346", "D", "C");
 		testFloor("ABCDEF", "123456", "Z", "F");
+		
+		testCountRange("ABCDEF", "123456", "B", "D", 3);
+		testCountRange("ABCDEF", "123456", "B", "C", 2);
+		testCountRange("FGHIJKLMN", "153246829", "H", "L", 5);
+		testCountRange("FGHIJKLMN", "153246829", "F", "N", 9);
 	}
 	/*
 	 * Test the rank function. 
@@ -434,5 +446,15 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		StdOut.format("Something went wrong.  The floor of %s is not equal to the expected key %s\n", floorOfKey, expectedKey);
 	}
 	
+	public static void testCountRange(String keyInData, String valInData, String key1InData, String key2InData, Integer expectedCountRange) {
+		SortedArrayST<String, String> st1 = from(keyInData, valInData);
+		
+		Integer number = st1.countRange(key1InData, key2InData);
+		
+		if (number.equals(expectedCountRange))  // test passes
+		StdOut.format("Correct.  The number of keys in the range is %s\n", number);
+		else
+		StdOut.format("Something went wrong.  The range outputted is %s is not equal to the expected key %s\n", number, expectedCountRange);
+	}
 
 }
