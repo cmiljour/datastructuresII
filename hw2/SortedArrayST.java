@@ -327,43 +327,58 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		// TODO Auto-generated method stub
 	
 		// Testing the rank function
+			// for 0 keys
 		testRank("A",0,"BDFK","1234");
 		testRank("B",0,"BDFK","1234");
+			// for 1 key
 		testRank("C",1,"BDFK","1234");
-		testRank("F",2,"BDFK","1234");
-		testRank("K",3,"BDFK","1234");
+			// key higher than all keys
 		testRank("Z",4,"BDFK","1234");
+			// big one
 		testRank("H",7,"ABCDEFGHI","123456789");
 		
-		// Testing the delete function  (actually testing your shiftLeft implementation)	
+		// Testing the delete function  (actually testing your shiftLeft implementation)
+			// delete one key/value in 1st position
 		testDelete("ABDFK","12345", "A","BDFK","2345");
+			// delete one key/value in 2nd position
 		testDelete("ABDFK","12345", "B","ADFK","1345");
+			// delete one key/value in last position
 		testDelete("ABDFK","12345", "K","ABDF","1234");
 		// TO DO   add two  additional test cases
 		//    include comments to describe what your case is checking for
 		
-
+			// insert self explanatory
 		testPut("AEIOU","13456", "B","2", "ABEIOU","123456");
-		// empty input
+			// empty input , should throw an error
 		testPut("AEIOU","13456", "","", "AEIOU","13456");
-		// adding to end
+			// adding to end
 		testPut("UVWXY","45678", "Z","9", "UVWXYZ","456789");
-		// inverse key, value input, does it work?
+			// inverse key, value input, does it work?
 		testPut("AEIOU","13456", "1","Z", "1AEIOU","Z13456");
 		// TO DO   add three  additional test cases
-		//    include comments to describe what your case is checking for
+		//include comments to describe what your case is checking for
+			// basic equality
 		testEquals("ABCDE", "12345", "ABCDE", "12345");
+			// long basic equality
 		testEquals("ABCDEFGHI", "123456789", "ABCDEFGHI", "123456789");
+			// different values, should throw an error
 		testEquals("ACDE", "1235", "ACDE", "1245");
+			// lowercase key vs uppercase key, should throw an error
 		testEquals("ABCD", "1234", "abcd", "1234");
 		
+			// normal test
 		testFloor("ABCDEF", "123456", "D", "D");
+			// key not in table
 		testFloor("ABCEF", "12346", "D", "C");
+			// key is last position in table
 		testFloor("ABCDEF", "123456", "Z", "F");
-		
+			// normal range test
 		testCountRange("ABCDEF", "123456", "B", "D", 3);
+			// 2nd normal range test for inclusivity of 2 keys
 		testCountRange("ABCDEF", "123456", "B", "C", 2);
+			// larger range test
 		testCountRange("FGHIJKLMN", "153246829", "H", "L", 5);
+			// range is the whole table
 		testCountRange("FGHIJKLMN", "153246829", "F", "N", 9);
 	}
 	/*
@@ -431,9 +446,9 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		String table2 = key2 + ": " + val2; 
 		
 		if (st1.equals(st2))  // test passes
-		StdOut.format("Symbol Table 1 %s is equal to Symbol Table 2 %s\n", table1, table2);
+		StdOut.format("testEquals:  Correct  Symbol Table 1 %s is equal to Symbol Table 2 %s\n", table1, table2);
 		else
-		StdOut.format("Something went wrong.  Symbol Table 1 %s is not equal to Symbol Table 2 %s\n", table1, table2);
+		StdOut.format("testEquals:  *ERROR*  Symbol Table 1 %s is not equal to Symbol Table 2 %s\n", table1, table2);
 	}
 	
 	public static void testFloor(String keyInData, String valInData, String floorOfKey, String expectedKey) {
@@ -442,9 +457,9 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		String floor = st1.floor(floorOfKey);
 		
 		if (floor.equals(expectedKey))  // test passes
-		StdOut.format("The floor of %s is equal to the expected key %s\n", floorOfKey, expectedKey);
+		StdOut.format("testFloor:  Correct  The floor of %s is equal to the expected key %s\n", floorOfKey, expectedKey);
 		else
-		StdOut.format("Something went wrong.  The floor of %s is not equal to the expected key %s\n", floorOfKey, expectedKey);
+		StdOut.format("testFloor:  *ERROR* Something went wrong.  The floor of %s is not equal to the expected key %s\n", floorOfKey, expectedKey);
 	}
 	
 	public static void testCountRange(String keyInData, String valInData, String key1InData, String key2InData, Integer expectedCountRange) {
@@ -453,9 +468,9 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		Integer number = st1.countRange(key1InData, key2InData);
 		
 		if (number.equals(expectedCountRange))  // test passes
-		StdOut.format("Correct.  The number of keys in the range is %s\n", number);
+		StdOut.format("testCountRange:  Correct.  The number of keys in the range is %s\n", number);
 		else
-		StdOut.format("Something went wrong.  The range outputted is %s is not equal to the expected key %s\n", number, expectedCountRange);
+		StdOut.format("testCountRange:  *ERROR*  The range outputted is %s is not equal to the expected key %s\n", number, expectedCountRange);
 	}
 
 }
