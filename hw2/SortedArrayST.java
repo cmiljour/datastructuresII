@@ -185,16 +185,16 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 			
 			int mid = lo + (hi - lo)/2;
 			
-			if (mid == 0) {
-				if (key.compareTo(keys[mid]) == 0) {
-					return mid;
-				}
-				else if (key.compareTo(keys[mid]) < 0) {
-					return 0;
-				}
-				
-//				else return 1;
-			}
+//			if (mid == 0) {
+//				if (key.compareTo(keys[mid]) == 0) {
+//					return mid;
+//				}
+//				else if (key.compareTo(keys[mid]) < 0) {
+//					return 0;
+//				}
+//				
+//
+//			}
 			
 			if (key.compareTo(keys[mid]) == 0) {
 				return mid;
@@ -223,14 +223,15 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 			return keys.length;
 		}
 		
-		if(key.compareTo(keys[mid]) > 0 ) {
-			return keyBinarySearch(key, mid+1, hi);
-		}
-		
 		if(key.compareTo(keys[mid]) == 0 ) {
 			
 			return mid;
 		}
+		
+		if(key.compareTo(keys[mid]) > 0 ) {
+			return keyBinarySearch(key, mid+1, hi);
+		}
+		
 		
 		if(key.compareTo(keys[mid]) < 0) {
 			
