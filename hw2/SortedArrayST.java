@@ -185,17 +185,6 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 			
 			int mid = lo + (hi - lo)/2;
 			
-//			if (mid == 0) {
-//				if (key.compareTo(keys[mid]) == 0) {
-//					return mid;
-//				}
-//				else if (key.compareTo(keys[mid]) < 0) {
-//					return 0;
-//				}
-//				
-//
-//			}
-			
 			if (key.compareTo(keys[mid]) == 0) {
 				return mid;
 			}

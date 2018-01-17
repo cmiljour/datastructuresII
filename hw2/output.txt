@@ -1,0 +1,28 @@
+Cory Miljour
+Data Structures II, Wed night Winter 2018
+
+Please note that the error's below are expected due to purposeful bad input.
+
+rankTest: Correct  String BDFK Key A rank: 0
+rankTest: Correct  String BDFK Key B rank: 0
+rankTest: Correct  String BDFK Key C rank: 1
+rankTest: Correct  String BDFK Key Z rank: 4
+rankTest: Correct  String ABCDEFGHI Key H rank: 7
+testDelete: Correct  Before ABDFK delete:A After: BDFK
+testDelete: Correct  Before ABDFK delete:B After: ADFK
+testDelete: Correct  Before ABDFK delete:K After: ABDF
+testPut: Correct  Before AEIOU put:B After: ABEIOU
+testPut: *Error*  Before AEIOU put: After: AEIOU
+testPut: Correct  Before UVWXY put:Z After: UVWXYZ
+testPut: Correct  Before AEIOU put:1 After: 1AEIOU
+testEquals:  Correct  Symbol Table 1 ABCDE: 12345 is equal to Symbol Table 2 ABCDE: 12345
+testEquals:  Correct  Symbol Table 1 ABCDEFGHI: 123456789 is equal to Symbol Table 2 ABCDEFGHI: 123456789
+testEquals:  *ERROR*  Symbol Table 1 ACDE: 1235 is not equal to Symbol Table 2 ACDE: 1245
+testEquals:  *ERROR*  Symbol Table 1 ABCD: 1234 is not equal to Symbol Table 2 abcd: 1234
+testFloor:  Correct  The floor of D is equal to the expected key D
+testFloor:  Correct  The floor of D is equal to the expected key C
+testFloor:  Correct  The floor of Z is equal to the expected key F
+testCountRange:  Correct.  The number of keys in the range is 3
+testCountRange:  Correct.  The number of keys in the range is 2
+testCountRange:  Correct.  The number of keys in the range is 5
+testCountRange:  Correct.  The number of keys in the range is 9
