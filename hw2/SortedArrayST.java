@@ -141,10 +141,7 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	private void shiftRight(int r) {
 		Key [] keyCopyArr = Arrays.copyOf(keys, (keys.length + 1));
 		Value [] valCopyArr = Arrays.copyOf(vals, (vals.length + 1));
-		
-		int keyCopyArrLen = keyCopyArr.length;
-		int valCopyArrLen = valCopyArr.length;
-		
+			
 		for ( int i = keyCopyArr.length - 1; i > r; i--) {
 			keyCopyArr[i ] = keyCopyArr[i - 1];
 			valCopyArr[i ] = valCopyArr[i - 1];
@@ -177,7 +174,6 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	/**
 	 * rank returns the number of keys in this symbol table that is less than the given key. 
 	 */
-	
 	
 	public int keyBinarySearch (Key key, int lo, int hi) {
 		
