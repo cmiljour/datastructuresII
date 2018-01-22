@@ -268,7 +268,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		};
 		
 		if (cmp < 0) {
-			if(key.compareTo(x.left.key) < 0) {
+			if(key.compareTo(x.left.key) < 0 || key.compareTo(x.left.key) > 0) {
 				deleteHelper(x.left, key, val);
 			}
 			if (x.left.left != null && x.left.right != null) {
