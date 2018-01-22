@@ -56,9 +56,10 @@ public class hw3Driver {
 //			shortestPathTest("ngvdhpyceioqaxz", "012345678912345", 3);
 //			shortestPathTest("oeubhqyacgirxz", "01234567891234", 3);
 			
-//			deleteTest("ofwagvz","0123456", "w", "2");
-//			deleteTest("ofwagvz", "0123456", "f", "1");
+			deleteTest("ofwagvz","0123456", "w", "2");
+			deleteTest("ofwagvz", "0123456", "f", "1");
 			deleteTest("ofwagvz", "0123456", "o", "0");
+			deleteTest("ofwagvz", "0123456", "z", "6");
 
 		}
 
@@ -156,7 +157,7 @@ public class hw3Driver {
 			bst.delete(delKey, delVal);
 			String retrievedKey = bst.get(delKey);
 			//report result
-			if ( retrievedKey == null)  // test passes
+			if (retrievedKey == null)  // test passes
 				StdOut.format("deleteTest: Correct  You deleted %s from %s\n", delKey,keys);
 			else
 				StdOut.format("deleteTest: *Error*  You were supposed to delete %s, but something went wrong\n", delKey);

@@ -188,24 +188,53 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		int cmp = key.compareTo(x.key);
 		
 		if (cmp < 0) {
-			if(x.key.compareTo(x.left.key) < 0) {
+			if(key.compareTo(x.left.key) < 0) {
 				deleteHelper(x.left, key, val);
 			}
-			if (x.left.left != null && x.left.right != null) {
-				Node t = x.left;
-				x.left = t.right;
-				x.left.left = t.left;
+			if (key.compareTo(x.left.key) == 0) {
+				if (x.left.left != null && x.left.right != null) {
+					Node t = x.left;
+					x.left = t.right;
+					x.left.left = t.left;
+				}
+				if ((x.left.left == null && x.left.right == null)) {
+					x.left = null;
+				}
+				if ((x.left.left != null && x.left.right == null)) {
+					x.left = x.left.left;
+				}
+				if ((x.left.left == null && x.left.right != null)) {
+					x.left = x.left.right;
+				}
+				
 			}
+			
 			
 		}
 		else if (cmp > 0){
-			if (x.key != x.right.key) {
+			if (key.compareTo(x.right.key) > 0 ) {
 				deleteHelper(x.right, key, val);
 			}
-			if (x.right.left != null && x.right.right != null) {
-				Node t = x.right;
-				x.right = t.left;
-				x.right.right = t.right;
+			
+			if (key.compareTo(x.right.key) == 0) {
+				if (x.right.left != null && x.right.right != null) {
+					Node t = x.right;
+					x.right = t.left;
+					x.right.right = t.right;
+					return;
+				}
+				if ((x.right.left == null && x.right.right == null)) {
+					x.right = null;
+					return;
+				}
+				if ((x.right.left != null && x.right.right == null)) {
+					x.right = x.right.left;
+					return;
+				}
+				if ((x.right.left == null && x.right.right != null)) {
+					x.right = x.right.right;
+					return;
+				}
 			}
 		}
 		else {
@@ -224,13 +253,22 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		int cmp = key.compareTo(x.key);
 		
 		if (cmp == 0) {
-			Node t = x;
-			x.left.right = x.right;
-			x = x.left;
+			Node t = root;
+			root = x.left;
+			
+			if (root.left != null && root.right == null ) {
+				root.right = t.right;
+			}
+			
+			root.right.right = t.right;
+			
+			t = null;
+			
+			return;
 		};
 		
 		if (cmp < 0) {
-			if(x.key.compareTo(x.left.key) < 0) {
+			if(key.compareTo(x.left.key) < 0) {
 				deleteHelper(x.left, key, val);
 			}
 			if (x.left.left != null && x.left.right != null) {
@@ -240,14 +278,16 @@ public class BST403<Key extends Comparable<Key>, Value> {
 			}
 		}
 		if (cmp > 0) 
-			if (x.key.compareTo(x.right.key) > 0) {
-				deleteHelper(x.right, key, val);
-			}
-			if (x.right.left != null && x.right.right != null) {
+			
+			if (key.compareTo(x.right.key) == 0 && x.right.left != null && x.right.right != null) {
 				Node t = x.right;
 				x.right = t.left;
 				x.right.right = t.right;
 			}
+			int result = key.compareTo(x.right.key);
+			if (key.compareTo(x.right.key) > 0) {
+				deleteHelper(x.right, key, val);
+		}
 	
 			
 		return;  // ToDo 3
