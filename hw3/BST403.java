@@ -58,9 +58,36 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	/* 
 	 * return the size of the tree
 	 */
-	public int size() {
+	
+	public int rSize(Node x) {
+		Integer count = 0;
 		
-		return -1; // ToDo 0
+		if (x.left != null) {
+			count = rSize(x.left) + count;
+			
+			if (x.right != null) {
+				count = rSize(x.right) + count;
+			}
+			count++;
+		}
+		
+		if (x.left == null && x.right != null) {
+			count = rSize(x.right) + count;
+			count++;
+		}
+		
+		if (x.left == null && x.right == null) {
+			return 1;
+		}
+		
+		return count; // ToDo 0
+	}
+	
+	public int size() {
+		Node x = root;
+		Integer count;
+		if (x == null) return 0;
+		return rSize(x);  // ToDo 0
 	}
 	/**
 	 * Returns the value associated with the given key.
