@@ -177,7 +177,79 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * ToDo 3:  implement a version of delete meeting the above spec
 	 * 
 	 */
+	
+	
+	public void deleteHelper(Node root, Key key, Value val) {
+		
+		Node x = root;
+		
+		if (x == null) return;
+		
+		int cmp = key.compareTo(x.key);
+		
+		if (cmp < 0) {
+			if(x.key.compareTo(x.left.key) < 0) {
+				deleteHelper(x.left, key, val);
+			}
+			if (x.left.left != null && x.left.right != null) {
+				Node t = x.left;
+				x.left = t.right;
+				x.left.left = t.left;
+			}
+			
+		}
+		else if (cmp > 0){
+			if (x.key != x.right.key) {
+				deleteHelper(x.right, key, val);
+			}
+			if (x.right.left != null && x.right.right != null) {
+				Node t = x.right;
+				x.right = t.left;
+				x.right.right = t.right;
+			}
+		}
+		else {
+			
+		}
+					
+		return;  // ToDo 3
+	}
+	
 	public void delete(Key key, Value val) {
+		
+		Node x = root;
+		
+		if (x == null) return;
+		
+		int cmp = key.compareTo(x.key);
+		
+		if (cmp == 0) {
+			Node t = x;
+			x.left.right = x.right;
+			x = x.left;
+		};
+		
+		if (cmp < 0) {
+			if(x.key.compareTo(x.left.key) < 0) {
+				deleteHelper(x.left, key, val);
+			}
+			if (x.left.left != null && x.left.right != null) {
+				Node t = x.left;
+				x.left = t.right;
+				x.left.left = t.left;
+			}
+		}
+		if (cmp > 0) 
+			if (x.key.compareTo(x.right.key) > 0) {
+				deleteHelper(x.right, key, val);
+			}
+			if (x.right.left != null && x.right.right != null) {
+				Node t = x.right;
+				x.right = t.left;
+				x.right.right = t.right;
+			}
+	
+			
 		return;  // ToDo 3
 	}
 	
@@ -240,7 +312,77 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * 
 	 * ToDo 5
 	 */
+	
+	public int lenShortestPathToNullHelper(Node root) {
+		Node x = root;
+		Integer count = 0;
+		Integer leftCount = 0;
+		Integer rightCount = 0;
+		
+		if (x.left == null || x.right == null) {
+			return 1;
+		}
+		
+		if (x.left == null && x.right != null  || x.left != null && x.right == null ) {
+			return 1;
+		}
+		
+		if (x.left != null) {
+			leftCount = lenShortestPathToNullHelper(x.left) + leftCount;
+			leftCount++;
+		}
+		
+		if (x.right != null) {
+			rightCount = lenShortestPathToNullHelper(x.right) + rightCount;
+			rightCount++;
+		}
+		
+		if (leftCount.compareTo(rightCount) < 0) {
+			return leftCount;
+		}
+		
+		if (leftCount.compareTo(rightCount) > 0) {
+			return rightCount;
+		}
+		
+		if (leftCount.compareTo(rightCount) == 0) {
+			return rightCount;
+		}
+		
+		return 1; // ToDo 5
+	}
+	
 	public int lenShortestPathToNull() {
+		Node x = root;
+		Integer leftCount = 0;
+		Integer rightCount = 0;
+		
+		if (x.left == null || x.right == null) {
+			return 1;
+		}
+		
+		if (x.left != null) {
+			leftCount = lenShortestPathToNullHelper(x.left) + leftCount;
+			leftCount++;
+		}
+		
+		if (x.right != null) {
+			rightCount = lenShortestPathToNullHelper(x.right) + rightCount;
+			rightCount++;
+		}
+		
+		if (leftCount.compareTo(rightCount) < 0) {
+			return leftCount;
+		}
+		
+		if (leftCount.compareTo(rightCount) > 0) {
+			return rightCount;
+		}
+		
+		if (leftCount.compareTo(rightCount) == 0) {
+			return rightCount;
+		}
+		
 		return 0; // ToDo 5
 	}
 	

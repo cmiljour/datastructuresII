@@ -26,30 +26,39 @@ public class hw3Driver {
 				
 			//  label each test case with a comment describing what you are testing for.
 //			
-			sizeTest("",0);				// test size on an empty ST (symbol table)
-			sizeTest("dbeac",5);        // test size on a non-empty ST
-			sizeTest("a", 1);
-			sizeTest("abcdefghi",9);
+//			sizeTest("",0);				// test size on an empty ST (symbol table)
+//			sizeTest("dbeac",5);        // test size on a non-empty ST
+//			sizeTest("a", 1);
+//			sizeTest("abcdefghi",9);
 //			putTest("abcde", "01234", "f", "5", "abcdef");
 			
 //			// middle key test
-			getTest("abcde", "01234", "c", "2");
+//			getTest("abcde", "01234", "c", "2");
 //			// left most key test
-			getTest("abcde", "01234", "a", "0");
+//			getTest("abcde", "01234", "a", "0");
 //			// right most key test
-			getTest("abcde", "01234", "e", "4");
+//			getTest("abcde", "01234", "e", "4");
 //			// null test
-			getTest("abcde", "01234", "f", "0");
+//			getTest("abcde", "01234", "f", "0");
 			
-			numLeavesTest("dbeac", "31402", 3);
-			numLeavesTest("cbaed", "21043", 2);
-			numLeavesTest("bcdae", "21043", 2);
-			numLeavesTest("ecdba", "21043", 2);
-			numLeavesTest("edcba", "21043", 1);
-			numLeavesTest("hczijbd", "2104398", 3);
-			numLeavesTest("uvwxyz", "012345", 1);
-			numLeavesTest("bac", "012", 2);
-			numLeavesTest("b", "0", 1);
+//			numLeavesTest("dbeac", "31402", 3);
+//			numLeavesTest("cbaed", "21043", 2);
+//			numLeavesTest("bcdae", "21043", 2);
+//			numLeavesTest("ecdba", "21043", 2);
+//			numLeavesTest("edcba", "21043", 1);
+//			numLeavesTest("hczijbd", "2104398", 3);
+//			numLeavesTest("uvwxyz", "012345", 1);
+//			numLeavesTest("bac", "012", 2);
+//			numLeavesTest("b", "0", 1);
+//			shortestPathTest("dbfge", "01234", 2);
+//			shortestPathTest("cdbe", "0123", 2);
+//			shortestPathTest("hapbnv", "012345", 2);
+//			shortestPathTest("ngvdhpyceioqaxz", "012345678912345", 3);
+//			shortestPathTest("oeubhqyacgirxz", "01234567891234", 3);
+			
+//			deleteTest("ofwagvz","0123456", "w", "2");
+//			deleteTest("ofwagvz", "0123456", "f", "1");
+			deleteTest("ofwagvz", "0123456", "o", "0");
 
 		}
 
@@ -119,5 +128,38 @@ public class hw3Driver {
 				StdOut.format("numLeavesTest: *Error*  The outputted value was %s, it should have returned %s\n", numberOfLeaves, expectedVal);
 		}
 		
+		public static void shortestPathTest( String keys, String vals, Integer expectedVal) {
+			
+			// create and populate the table from the input string vals
+			BST403<String,String> bst = new BST403<String,String>();
+			for (int i=0; i < vals.length(); i++) {
+				bst.put( (keys.substring(i, i+1)), (vals.substring(i, i+1)) );
+			}
+			
+			Integer numberOfLinks = bst.lenShortestPathToNull();
+			
+			//report result
+			if ( expectedVal.equals(numberOfLinks) )  // test passes
+				StdOut.format("shortestPathTest: Correct, the number of links in %s is = %s \n", keys, expectedVal);
+			else
+				StdOut.format("shortestPathTest: *Error*  The number of links is %s, it should have returned %s\n", numberOfLinks, expectedVal);
+		}
+		
+		public static void deleteTest( String keys, String vals, String delKey, String delVal) {
+			
+			// create and populate the table from the input string vals
+			BST403<String,String> bst = new BST403<String,String>();
+			for (int i=0; i < vals.length(); i++) {
+				bst.put( (keys.substring(i, i+1)), (vals.substring(i, i+1)) );
+			}
+			//  call the size function
+			bst.delete(delKey, delVal);
+			String retrievedKey = bst.get(delKey);
+			//report result
+			if ( retrievedKey == null)  // test passes
+				StdOut.format("deleteTest: Correct  You deleted %s from %s\n", delKey,keys);
+			else
+				StdOut.format("deleteTest: *Error*  You were supposed to delete %s, but something went wrong\n", delKey);
+		}
 
 }
