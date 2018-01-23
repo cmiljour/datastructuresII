@@ -1,0 +1,16 @@
+Cory Miljour
+Data Structures 2 - 2017-2018 Winter
+
+3.1.13:  Binary Search.  Due to more get operations, the Log(n) performance of this algorithm guarantees minimal searching (get()).  Increasing exponential number of operations has little effect on search speed.
+
+3.1.14:  Due to the larger # of insert operations, a sequential search in an unordered linked list is the best choice.  The insert time is N vs binary search 2n in the worst case.
+
+3.2.2  
+Order 1:  XSRHECA  
+Order 2:  ACEHRSX
+Order 3:  XSRHACE
+Order 4:  ACEHRXS
+Order 5:  ACEHXSR
+ 
+3.2.4
+B

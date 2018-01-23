@@ -179,7 +179,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 */
 	
 	
-	public void deleteHelper(Node root, Key key, Value val) {
+	public void oldDeleteHelper(Node root, Key key, Value val) {
 		
 		Node x = root;
 		
@@ -244,7 +244,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		return;  // ToDo 3
 	}
 	
-	public void delete(Key key, Value val) {
+	public void oldDelete(Key key, Value val) {
 		
 		Node x = root;
 		
@@ -261,7 +261,6 @@ public class BST403<Key extends Comparable<Key>, Value> {
 			}
 			
 			root.right.right = t.right;
-			
 			t = null;
 			
 			return;
@@ -293,6 +292,104 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		return;  // ToDo 3
 	}
 	
+	public Node maxOfLeft(Node root, Key key, Value val) {
+		
+		Node x = root;
+		
+		if (x == null) return null;	
+		
+		if (x.right != null) {
+			return maxOfLeft(x.right, key, val);
+		}
+		
+		if (x.right == null || x.left == null) {
+			return x;
+		}
+		
+		if (x.right == null && x.left == null) {
+			return x;
+		}
+		
+		
+					
+		return null;  // ToDo 3
+	}
+	
+	public Node deleteHelper(Node root, Key key, Value val) {
+		
+		Node x = root;
+		
+		if (x == null) return null;
+		
+		int cmp = key.compareTo(x.key);
+		
+		if (cmp == 0 && x.left != null & x.right != null) {
+			Node t = x;
+			Node y = maxOfLeft(t.left, key, val);
+			if (y.left == null) {
+				y.left = t.left;
+			}
+			y.right = t.right;
+			t = null;
+			x = null;
+			
+			return y;
+			
+		};
+		
+		if (cmp == 0 && x.left != null && x.right == null) {
+			Node t = x;
+			t = null;
+			return x.left;
+		}
+		
+		if (cmp == 0 && x.left == null && x.right != null) {
+			Node t = x;
+			t = null;
+			return x.right;
+		}
+		
+		if (cmp == 0 && x.left == null && x.right == null) {
+			x = null;
+			return x;
+		}
+		
+		
+		if (cmp < 0) {
+			x.left = deleteHelper(x.left, key, val);
+		}
+		if (cmp > 0) {
+			x.right = deleteHelper(x.right, key, val);
+		}
+		
+		return null;
+		
+	}	
+		
+	
+	public void delete(Key key, Value val) {
+		
+		Node x = root;
+		
+		if (x == null) return;
+		
+		int cmp = key.compareTo(x.key);
+		
+		if (cmp == 0) {
+			root = deleteHelper(x, key, val);
+		}
+
+		if (cmp < 0) {
+			x.left = deleteHelper(x.left, key, val);
+		}
+		if (cmp > 0) {
+			x.right = deleteHelper(x.right, key, val);
+			
+		}
+			
+		return;  // ToDo 3
+	}
+	
 	
 	/*
 	 * equals determines if two BST403s are exactly the same:
@@ -313,20 +410,20 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * ToDo 4
 	 */
 	
-	public int rNumLeaves(Node root) {
+	public int numLeavesHelper(Node root) {
 		Integer count = 0;
 		Node x = root;
 		
 		if (x.left != null) {
-			count = rNumLeaves(x.left) + count;
+			count = numLeavesHelper(x.left) + count;
 			
 			if (x.right != null) {
-				count = rNumLeaves(x.right) + count;
+				count = numLeavesHelper(x.right) + count;
 			}
 		}
 		
 		if (x.left == null && x.right != null) {
-			count = rNumLeaves(x.right) + count;
+			count = numLeavesHelper(x.right) + count;
 		}
 		
 		if (x.left == null && x.right == null) {
@@ -340,11 +437,11 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	public int numLeaves() {
 		
 		Node x = root;
-		Integer count = 0;
+//		Integer count = 0;
 		
 		if (x == null ) return 0;
 		
-		return rNumLeaves(x); // ToDo 4
+		return numLeavesHelper(x); // ToDo 4
 	}
 	
 	/**

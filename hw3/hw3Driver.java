@@ -56,11 +56,14 @@ public class hw3Driver {
 //			shortestPathTest("ngvdhpyceioqaxz", "012345678912345", 3);
 //			shortestPathTest("oeubhqyacgirxz", "01234567891234", 3);
 			
-//			deleteTest("ofwagvz","0123456", "w", "2");
-//			deleteTest("ofwagvz", "0123456", "f", "1");
-//			deleteTest("ofwagvz", "0123456", "o", "0");
-//			deleteTest("ofwagvz", "0123456", "z", "6");
+			deleteTest("ofwagvz","0123456", "w", "2");
+			deleteTest("ofwagvz", "0123456", "f", "1");
+			deleteTest("ofwagvz", "0123456", "o", "0");
+			deleteTest("ofwagvz", "0123456", "z", "6");
 			deleteTest("ofwagvz", "0123456", "g", "4");
+			deleteTest("ofwagvzh", "01234567", "o", "0");
+			deleteTest("abcdefgh", "01234567", "a", "0");
+			deleteTest("abcdefgh", "01234567", "h", "7");
 
 		}
 
