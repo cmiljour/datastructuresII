@@ -6,6 +6,10 @@ package hw3;
  * You must not change the declaration of any method.
  */
 
+/**
+ * Cory Miljour
+ * Data Structures II - Winter 2018
+ */
 
 /**
  *  The B(inary)S(earch)T(ree) class represents a symbol table of
@@ -59,20 +63,20 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * return the size of the tree
 	 */
 	
-	public int rSize(Node x) {
+	public int sizeHelper(Node x) {
 		Integer count = 0;
 		
 		if (x.left != null) {
-			count = rSize(x.left) + count;
+			count = sizeHelper(x.left) + count;
 			
 			if (x.right != null) {
-				count = rSize(x.right) + count;
+				count = sizeHelper(x.right) + count;
 			}
 			count++;
 		}
 		
 		if (x.left == null && x.right != null) {
-			count = rSize(x.right) + count;
+			count = sizeHelper(x.right) + count;
 			count++;
 		}
 		
@@ -85,9 +89,8 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	
 	public int size() {
 		Node x = root;
-		Integer count;
 		if (x == null) return 0;
-		return rSize(x);  // ToDo 0
+		return sizeHelper(x);  // ToDo 0
 	}
 	/**
 	 * Returns the value associated with the given key.
@@ -178,120 +181,6 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	
-	
-	public void oldDeleteHelper(Node root, Key key, Value val) {
-		
-		Node x = root;
-		
-		if (x == null) return;
-		
-		int cmp = key.compareTo(x.key);
-		
-		if (cmp < 0) {
-			if(key.compareTo(x.left.key) < 0) {
-				deleteHelper(x.left, key, val);
-			}
-			if (key.compareTo(x.left.key) == 0) {
-				if (x.left.left != null && x.left.right != null) {
-					Node t = x.left;
-					x.left = t.right;
-					x.left.left = t.left;
-				}
-				if ((x.left.left == null && x.left.right == null)) {
-					x.left = null;
-				}
-				if ((x.left.left != null && x.left.right == null)) {
-					x.left = x.left.left;
-				}
-				if ((x.left.left == null && x.left.right != null)) {
-					x.left = x.left.right;
-				}
-				
-			}
-			
-			
-		}
-		else if (cmp > 0){
-			if (key.compareTo(x.right.key) > 0 ) {
-				deleteHelper(x.right, key, val);
-			}
-			
-			if (key.compareTo(x.right.key) == 0) {
-				if (x.right.left != null && x.right.right != null) {
-					Node t = x.right;
-					x.right = t.left;
-					x.right.right = t.right;
-					return;
-				}
-				if ((x.right.left == null && x.right.right == null)) {
-					x.right = null;
-					return;
-				}
-				if ((x.right.left != null && x.right.right == null)) {
-					x.right = x.right.left;
-					return;
-				}
-				if ((x.right.left == null && x.right.right != null)) {
-					x.right = x.right.right;
-					return;
-				}
-			}
-		}
-		else {
-			
-		}
-					
-		return;  // ToDo 3
-	}
-	
-	public void oldDelete(Key key, Value val) {
-		
-		Node x = root;
-		
-		if (x == null) return;
-		
-		int cmp = key.compareTo(x.key);
-		
-		if (cmp == 0) {
-			Node t = root;
-			root = x.left;
-			
-			if (root.left != null && root.right == null ) {
-				root.right = t.right;
-			}
-			
-			root.right.right = t.right;
-			t = null;
-			
-			return;
-		};
-		
-		if (cmp < 0) {
-			if(key.compareTo(x.left.key) < 0 || key.compareTo(x.left.key) > 0) {
-				deleteHelper(x.left, key, val);
-			}
-			if (x.left.left != null && x.left.right != null) {
-				Node t = x.left;
-				x.left = t.right;
-				x.left.left = t.left;
-			}
-		}
-		if (cmp > 0) 
-			
-			if (key.compareTo(x.right.key) == 0 && x.right.left != null && x.right.right != null) {
-				Node t = x.right;
-				x.right = t.left;
-				x.right.right = t.right;
-			}
-			int result = key.compareTo(x.right.key);
-			if (key.compareTo(x.right.key) > 0) {
-				deleteHelper(x.right, key, val);
-		}
-	
-			
-		return;  // ToDo 3
-	}
-	
 	public Node maxOfLeft(Node root, Key key, Value val) {
 		
 		Node x = root;
@@ -309,9 +198,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		if (x.right == null && x.left == null) {
 			return x;
 		}
-		
-		
-					
+				
 		return null;  // ToDo 3
 	}
 	
@@ -354,10 +241,10 @@ public class BST403<Key extends Comparable<Key>, Value> {
 			return x;
 		}
 		
-		
 		if (cmp < 0) {
 			x.left = deleteHelper(x.left, key, val);
 		}
+		
 		if (cmp > 0) {
 			x.right = deleteHelper(x.right, key, val);
 		}
@@ -435,10 +322,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	
 	
 	public int numLeaves() {
-		
 		Node x = root;
-//		Integer count = 0;
-		
 		if (x == null ) return 0;
 		
 		return numLeavesHelper(x); // ToDo 4
@@ -491,36 +375,12 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	
 	public int lenShortestPathToNull() {
 		Node x = root;
-		Integer leftCount = 0;
-		Integer rightCount = 0;
-		
+				
 		if (x.left == null || x.right == null) {
 			return 1;
 		}
-		
-		if (x.left != null) {
-			leftCount = lenShortestPathToNullHelper(x.left) + leftCount;
-			leftCount++;
-		}
-		
-		if (x.right != null) {
-			rightCount = lenShortestPathToNullHelper(x.right) + rightCount;
-			rightCount++;
-		}
-		
-		if (leftCount.compareTo(rightCount) < 0) {
-			return leftCount;
-		}
-		
-		if (leftCount.compareTo(rightCount) > 0) {
-			return rightCount;
-		}
-		
-		if (leftCount.compareTo(rightCount) == 0) {
-			return rightCount;
-		}
-		
-		return 0; // ToDo 5
+			
+		return lenShortestPathToNullHelper(x); // ToDo 5
 	}
 	
 	/**
@@ -530,6 +390,11 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	public boolean isValidBST() {
+		Node x = root;
+		
+		
+		
+		
 		return false; //ToDo 6
 	}
 	
