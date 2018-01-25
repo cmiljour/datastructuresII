@@ -251,7 +251,6 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	
 	public int lenShortestPathToNullHelper(Node root) {
 		Node x = root;
-		Integer count = 0;
 		Integer leftCount = 0;
 		Integer rightCount = 0;
 		
@@ -263,15 +262,8 @@ public class BST403<Key extends Comparable<Key>, Value> {
 			return 1;
 		}
 		
-		if (x.left != null) {
-			leftCount = lenShortestPathToNullHelper(x.left) + leftCount;
-			leftCount++;
-		}
-		
-		if (x.right != null) {
-			rightCount = lenShortestPathToNullHelper(x.right) + rightCount;
-			rightCount++;
-		}
+		leftCount = lenShortestPathToNullHelper(x.left) + 1;
+		rightCount = lenShortestPathToNullHelper(x.right) + 1;
 		
 		if (leftCount.compareTo(rightCount) < 0) {
 			return leftCount;
@@ -284,6 +276,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		if (leftCount.compareTo(rightCount) == 0) {
 			return rightCount;
 		}
+
 		
 		return 1; // ToDo 5
 	}
