@@ -160,21 +160,17 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	
-	public Node maxOfLeft(Node root, Key key) {
+	public Node maxOfLeft(Node root) {
 		
 		Node x = root;
 		
 		if (x == null) return null;	
 		
 		if (x.right != null) {
-			return maxOfLeft(x.right, key);
+			return maxOfLeft(x.right);
 		}
 		
 		if (x.right == null || x.left == null) {
-			return x;
-		}
-		
-		if (x.right == null && x.left == null) {
 			return x;
 		}
 				
@@ -198,7 +194,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 			if (x.right == null ) return x.left;
 			if (x.left == null) return x.right;
 			Node t = x;
-			x = maxOfLeft(x.left, key);
+			x = maxOfLeft(x.left);
 			x.left = deleteMax(t.left);
 			x.right = t.right;
 			
@@ -234,33 +230,17 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 */
 	
 	public int numLeavesHelper(Node root) {
-		Integer count = 0;
 		Node x = root;
+		if (x == null) return 0;
+		if (x.left == null && x.right == null ) return 1;
 		
-		if (x == null ) return 0;
-		
-		if (x.left != null) {
-			count = numLeavesHelper(x.left) + count;
-			
-			if (x.right != null) {
-				count = numLeavesHelper(x.right) + count;
-			}
-		}
-		
-		if (x.left == null && x.right != null) {
-			count = numLeavesHelper(x.right) + count;
-		}
-		
-		if (x.left == null && x.right == null) {
-			return 1;
-		}
-		
-		return count;
+		return numLeavesHelper(x.left) + numLeavesHelper(x.right);
+
 	}
 	
 	
 	public int numLeaves() {
-		return numLeavesHelper(root); // ToDo 4
+		return numLeavesHelper(root)  ; // ToDo 4
 	}
 	
 	/**
@@ -318,13 +298,37 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * ToDo 6
 	 * 
 	 */
-	public boolean isValidBST() {
+	
+	public boolean isValidBSTHelper(Node root, Key min, Key max) {
 		Node x = root;
+		if (x == null) return true;
 		
+		int cmpKeyToMin = x.key.compareTo(min);
+		int cmpKeyToMax = x.key.compareTo(max);
+		if(cmpKeyToMin <= 0 || cmpKeyToMax >= 0) return false;
+		return isValidBSTHelper(root.left, min, x.key) && isValidBSTHelper(root.right, x.key, max);
+	}
+	
+	public Key findMinKey(Node root) {
+		Key theKey = root.key;
+		if (root.left == null) return root.key; 
+		return findMinKey(root.left);
+	}
+	
+	public Key findMaxKey(Node root) {
+		Key theKey = root.key;
+		if (root.right == null) return root.key;
+		return findMaxKey(root.right);
+	}
+	
+	public boolean isValidBST() {
+				
+		if (root == null) return true;
 		
+		Key min = findMinKey(root);
+		Key max = findMaxKey(root);
 		
-		
-		return false; //ToDo 6
+		return isValidBSTHelper(root.left, min, root.key) && isValidBSTHelper(root.right, root.key, max); //ToDo 6
 	}
 	
 	/*****************************************************

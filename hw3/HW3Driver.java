@@ -16,7 +16,7 @@ public class HW3Driver {
 		lenShortestPathToNullTests();
 		getTests();
 		deleteTests();
-//		putTests();
+		putTests();
 	}
 	public static void sizeTests() {
 		sizeTest("", 0);	        // test size on an empty symbol table
