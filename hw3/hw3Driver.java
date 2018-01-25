@@ -158,7 +158,7 @@ public class hw3Driver {
 				bst.put( (keys.substring(i, i+1)), (vals.substring(i, i+1)) );
 			}
 			//  call the size function
-			bst.delete(delKey, delVal);
+			bst.delete(delKey);
 			String retrievedKey = bst.get(delKey);
 			//report result
 			if (retrievedKey == null)  // test passes

@@ -64,33 +64,12 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 */
 	
 	public int sizeHelper(Node x) {
-		Integer count = 0;
-		
-		if (x.left != null) {
-			count = sizeHelper(x.left) + count;
-			
-			if (x.right != null) {
-				count = sizeHelper(x.right) + count;
-			}
-			count++;
-		}
-		
-		if (x.left == null && x.right != null) {
-			count = sizeHelper(x.right) + count;
-			count++;
-		}
-		
-		if (x.left == null && x.right == null) {
-			return 1;
-		}
-		
-		return count; // ToDo 0
+		if (x == null) return 0;
+		return 1 + sizeHelper(x.left) + sizeHelper(x.right);
 	}
 	
 	public int size() {
-		Node x = root;
-		if (x == null) return 0;
-		return sizeHelper(x);  // ToDo 0
+		return sizeHelper(root);  // ToDo 0
 	}
 	/**
 	 * Returns the value associated with the given key.
@@ -181,14 +160,14 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	
-	public Node maxOfLeft(Node root, Key key, Value val) {
+	public Node maxOfLeft(Node root, Key key) {
 		
 		Node x = root;
 		
 		if (x == null) return null;	
 		
 		if (x.right != null) {
-			return maxOfLeft(x.right, key, val);
+			return maxOfLeft(x.right, key);
 		}
 		
 		if (x.right == null || x.left == null) {
@@ -201,80 +180,37 @@ public class BST403<Key extends Comparable<Key>, Value> {
 				
 		return null;  // ToDo 3
 	}
-	
-	public Node deleteHelper(Node root, Key key, Value val) {
 		
-		Node x = root;
+	private Node deleteMax(Node x) {
+		if (x.right == null) return x.left;
+		x.right = deleteMax(x.right);
+		return x;
+	}
+	
+	
+	private Node delete(Node x, Key key) {
 		
 		if (x == null) return null;
-		
 		int cmp = key.compareTo(x.key);
-		
-		if (cmp == 0 && x.left != null & x.right != null) {
+		if (cmp < 0) x.left = delete(x.left, key);
+		else if (cmp > 0) x.right = delete(x.right, key);
+		else {
+			if (x.right == null ) return x.left;
+			if (x.left == null) return x.right;
 			Node t = x;
-			Node y = maxOfLeft(t.left, key, val);
-			if (y.left == null) {
-				y.left = t.left;
-			}
-			y.right = t.right;
-			t = null;
-			x = null;
+			x = maxOfLeft(x.left, key);
+			x.left = deleteMax(t.left);
+			x.right = t.right;
 			
-			return y;
-			
-		};
-		
-		if (cmp == 0 && x.left != null && x.right == null) {
-			Node t = x;
-			t = null;
-			return x.left;
 		}
 		
-		if (cmp == 0 && x.left == null && x.right != null) {
-			Node t = x;
-			t = null;
-			return x.right;
-		}
-		
-		if (cmp == 0 && x.left == null && x.right == null) {
-			x = null;
-			return x;
-		}
-		
-		if (cmp < 0) {
-			x.left = deleteHelper(x.left, key, val);
-		}
-		
-		if (cmp > 0) {
-			x.right = deleteHelper(x.right, key, val);
-		}
-		
-		return null;
-		
-	}	
-		
+		return x;
+	}
 	
-	public void delete(Key key, Value val) {
+	public void delete(Key key) {		
+		// ToDo 3
+		root = delete(root, key);
 		
-		Node x = root;
-		
-		if (x == null) return;
-		
-		int cmp = key.compareTo(x.key);
-		
-		if (cmp == 0) {
-			root = deleteHelper(x, key, val);
-		}
-
-		if (cmp < 0) {
-			x.left = deleteHelper(x.left, key, val);
-		}
-		if (cmp > 0) {
-			x.right = deleteHelper(x.right, key, val);
-			
-		}
-			
-		return;  // ToDo 3
 	}
 	
 	
@@ -301,6 +237,8 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		Integer count = 0;
 		Node x = root;
 		
+		if (x == null ) return 0;
+		
 		if (x.left != null) {
 			count = numLeavesHelper(x.left) + count;
 			
@@ -322,10 +260,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	
 	
 	public int numLeaves() {
-		Node x = root;
-		if (x == null ) return 0;
-		
-		return numLeavesHelper(x); // ToDo 4
+		return numLeavesHelper(root); // ToDo 4
 	}
 	
 	/**
@@ -341,7 +276,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		Integer rightCount = 0;
 		
 		if (x.left == null || x.right == null) {
-			return 1;
+			return 0;
 		}
 		
 		if (x.left == null && x.right != null  || x.left != null && x.right == null ) {
@@ -374,13 +309,7 @@ public class BST403<Key extends Comparable<Key>, Value> {
 	}
 	
 	public int lenShortestPathToNull() {
-		Node x = root;
-				
-		if (x.left == null || x.right == null) {
-			return 1;
-		}
-			
-		return lenShortestPathToNullHelper(x); // ToDo 5
+		return lenShortestPathToNullHelper(root); // ToDo 5
 	}
 	
 	/**
