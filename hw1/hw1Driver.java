@@ -39,13 +39,17 @@ public class hw1Driver {
 			// To do:   call you testing functions with your test cases. 
 			//  label each test case with a comment describing what you are testing for.
 			
-			sizeTest("",0);				// test size on an empty ST (symbol table)
-			sizeTest("abcde",5);        // test size on a non-empty ST
-			rankTest("bzcwd", "j");
-			rankTest("bzcwd", "a");
-			floorTest("codazn", "p");
-			floorTest("codazn", "a");
-			inverseTest("abcdefg");
+//			sizeTest("",0);				// test size on an empty ST (symbol table)
+//			sizeTest("abcde",5);        // test size on a non-empty ST
+//			sizeTest("sldafwe", 7);
+			secondMaxKeyTest("abcde", "d");
+			secondMaxKeyTest("radwsghz", "w");
+			secondMaxKeyTest("ba", "a");
+//			rankTest("bzcwd", "j");
+//			rankTest("bzcwd", "a");
+//			floorTest("codazn", "p");
+//			floorTest("codazn", "a");
+//			inverseTest("abcdefg");
 										// add more more test here
 
 		}
@@ -56,7 +60,7 @@ public class hw1Driver {
 		public static void sizeTest( String vals, int answer ) {
 			
 			// create and populate the table from the input string vals
-			LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
+			LinkedListSTStudy<String,Integer> aList = new LinkedListSTStudy<String,Integer>();
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}
@@ -67,6 +71,22 @@ public class hw1Driver {
 				StdOut.format("sizeTest: Correct  String %s Answer: %d\n", vals,result);
 			else
 				StdOut.format("sizeTest: *Error*  String %s Answer: %d\n", vals,result);
+		}
+		
+		public static void secondMaxKeyTest( String vals, String answer ) {
+			
+			// create and populate the table from the input string vals
+			LinkedListSTStudy<String,Integer> aList = new LinkedListSTStudy<String,Integer>();
+			for (int i=0; i < vals.length(); i++) {
+				aList.put(vals.substring(i, i+1),i);
+			}
+			//  call the size function
+			String result = aList.secondMaxKey();
+			//report result
+			if ( result.equals(answer))  // test passes
+				StdOut.format("secondMaxKeyTest: Correct  String %s Answer: %s\n", vals,result);
+			else
+				StdOut.format("secondMaxKeyTest: *Error*  String %s Answer: %s\n", vals,result);
 		}
 		
 		//Todo: add your testing functions here

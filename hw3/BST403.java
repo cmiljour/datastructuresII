@@ -276,7 +276,6 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		if (leftCount.compareTo(rightCount) == 0) {
 			return rightCount;
 		}
-
 		
 		return 1; // ToDo 5
 	}
