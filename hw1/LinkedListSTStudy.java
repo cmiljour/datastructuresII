@@ -150,26 +150,56 @@ public class LinkedListSTStudy<Key extends Comparable<Key>, Value extends Compar
      * rank returns the number of keys in this symbol table that is less than the given key.
      * your implementation should be recursive. 
      */
-    public int rankHelper(Node next, Key key) {
-    	if (next == null) return 0;
-    	return -1;
+    public int rankHelper(Node x, Key key) {
+    	if (x == null) return 0;
+    	int cmpKey = key.compareTo(x.key);
+    	if (cmpKey > 0) return rankHelper(x.next, key) + 1;
+    	else {
+    		return rankHelper(x.next, key); 
+    	}
+    	
     }
     
     public int rank (Key key) {
     	Node x = first;
-    	
     	if (x == null) return 0;
     	
-        return -1; // TODO
+        return rankHelper(x, key); // TODO
     }
 
     /**
      * floor returns the largest key in the symbol table that is less than or equal to the given key.
      * it returns null if there is no such key.
      */
+    
+    public Key keyHelper(Node x, Key key) {
+    	
+    	if (x == null) return key;
+    	int cmpKey = x.key.compareTo(key);
+    	
+    	if (cmpKey == 0) return x.key;
+    	if (cmpKey > 0) return keyHelper(x.next, key);
+    	if (cmpKey < 0) return keyHelper(x.next, x.key);
+    	
+    	return null;
+    }
+    
     public Key floor (Key key) {
     	
-    	return null; // TODO
+    	Node x = first;
+    	if (x == null) return null;
+    	
+    	int cmpKey = x.key.compareTo(key);
+    	if (x.next == null && (cmpKey <= 0)) {
+    		return x.key;
+    	}
+    	
+    	if(x.next == null && cmpKey > 0){
+    		return null;
+    	}
+    	
+    	if (cmpKey > 0) return keyHelper(x.next, key);
+    	else { return keyHelper(x.next, x.key);}
     }
 
     /**

@@ -42,13 +42,16 @@ public class hw1Driver {
 //			sizeTest("",0);				// test size on an empty ST (symbol table)
 //			sizeTest("abcde",5);        // test size on a non-empty ST
 //			sizeTest("sldafwe", 7);
-			secondMaxKeyTest("abcde", "d");
-			secondMaxKeyTest("radwsghz", "w");
-			secondMaxKeyTest("ba", "a");
+//			secondMaxKeyTest("abcde", "d");
+//			secondMaxKeyTest("radwsghz", "w");
+//			secondMaxKeyTest("ba", "a");
 //			rankTest("bzcwd", "j");
 //			rankTest("bzcwd", "a");
+//			rankTest("bxcwd", "z");
+//			rankTest("a", "z");
 //			floorTest("codazn", "p");
-//			floorTest("codazn", "a");
+			floorTest("codazn", "a");
+			floorTest("rstuvy", "x");
 //			inverseTest("abcdefg");
 										// add more more test here
 
@@ -108,7 +111,7 @@ public class hw1Driver {
 		public static void floorTest( String vals, String key ) {
 			
 			// create and populate the table from the input string vals
-			LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
+			LinkedListSTStudy<String,Integer> aList = new LinkedListSTStudy<String,Integer>();
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}
