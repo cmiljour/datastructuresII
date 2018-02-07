@@ -238,38 +238,35 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	}
 	// Compare two  ST for equality
 	// TODO4
-	public boolean equals(SortedArrayST<String, String> x) {
-		if ( (Arrays.equals(vals, x.vals)) && (Arrays.equals(keys, x.keys)) ) {
-			return true;
+	public boolean equalArray(SortedArrayST<Key, Value> x) {
+		if (keys.length != x.keys.length) return false;
+		for (int i = 0; i < keys.length; i++) {
+			int cmpKeys = keys[i].compareTo(x.keys[i]);
+			if (cmpKeys != 0) return false;
+			if (vals[i].equals(x.vals[i]) == false) return false;
 		}
 		
-		return false;
+		return true;
 	}
 	/**
 	 * floor returns the largest key in the symbol table that is less than or equal to key.
 	 * it returns null if there is no such key.
 	 */
 	public Key floor(Key key) {
-		
-		Key minFloorKey = null;
+		if (rank(key) == 0) return null;
+		Key floor = null;
+		boolean isFloorPresent = false;
+		int keyRank = rank(key);
+		int floorRank = -1;
 		
 		for (int i = 0; i < keys.length ; i++) {
-
+			if (key.equals(keys[i])) return keys[i];
+			int numRank = rank(keys[i]);
+			if (numRank < keyRank && floor == null) floor = keys[i];
+			if (numRank < keyRank && numRank > floorRank) floor = keys[i];
 			
-			if(key.compareTo(keys[i]) == 0) {
-				return keys[i];
-			}
-			
-			if (key.compareTo(keys[i]) > 0 && minFloorKey == null) {
-				minFloorKey = keys[i];
-			}
-			
-			if (key.compareTo(keys[i]) > 0 && minFloorKey.compareTo(keys[i]) < 0) {
-				minFloorKey = keys[i];
-			}
 		}
-		
-		return minFloorKey; // TODO5
+		return floor;
 
 	}
 	/**
@@ -350,6 +347,9 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		testEquals("ACDE", "1235", "ACDE", "1245");
 			// lowercase key vs uppercase key, should throw an error
 		testEquals("ABCD", "1234", "abcd", "1234");
+		testEquals("ABCDE", "12345", "ABCD", "1234");
+		testEquals("ABDEG", "12345", "ABDEF", "12345");
+
 		
 			// normal test
 		testFloor("ABCDEF", "123456", "D", "D");
@@ -430,7 +430,7 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		String table1 = key1 + ": " + val1; 
 		String table2 = key2 + ": " + val2; 
 		
-		if (st1.equals(st2))  // test passes
+		if (st1.equalArray(st2))  // test passes
 		StdOut.format("testEquals:  Correct  Symbol Table 1 %s is equal to Symbol Table 2 %s\n", table1, table2);
 		else
 		StdOut.format("testEquals:  *ERROR*  Symbol Table 1 %s is not equal to Symbol Table 2 %s\n", table1, table2);

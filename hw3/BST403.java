@@ -313,6 +313,53 @@ public class BST403<Key extends Comparable<Key>, Value> {
 		return findMaxKey(root.right);
 	}
 	
+	public int numEvenDepthNodesHelper(Node x, int depthCount) {
+		if (x==null) return 0;
+		depthCount++;
+		if (depthCount % 2 == 0)return numEvenDepthNodesHelper(x.left, depthCount) + numEvenDepthNodesHelper(x.right, depthCount) + 1;
+		else {return numEvenDepthNodesHelper(x.left, depthCount) + numEvenDepthNodesHelper(x.right, depthCount);}
+	}
+	
+	public int numEvenDepthNodes() {
+		Node x = root;
+		if (x == null) return 0;
+		int depthCount = 0;
+		
+		return numEvenDepthNodesHelper(x.left, depthCount) + numEvenDepthNodesHelper(x.right, depthCount);
+	}
+	
+	public int numNodesDeeperHelper(Node x, int depthNumber, int depthCount) {
+		
+		if (x == null) return 0;
+		depthCount++;
+		if (depthCount > depthNumber) return 1 + numNodesDeeperHelper(x.left, depthNumber, depthCount) + numNodesDeeperHelper(x.right, depthNumber, depthCount);
+		else {return numNodesDeeperHelper(x.left, depthNumber, depthCount) + numNodesDeeperHelper(x.right, depthNumber, depthCount); }
+		
+	}
+	
+	public int numNodesDeeper(int number) {
+		Node x = root;
+		if (x == null) return 0;
+		
+		return numNodesDeeperHelper(x.left, number, 0) + numNodesDeeperHelper(x.right, number, 0);
+	}
+	
+	public int numOddNodesHelper(Node x, int depthCount) {
+		
+		if (x == null) return 0;
+		depthCount++;
+		if (depthCount % 3 == 0) return 1 + numOddNodesHelper(x.left, depthCount) + numOddNodesHelper(x.right, depthCount);
+		else {return numOddNodesHelper(x.left, depthCount) + numOddNodesHelper(x.right, depthCount); }
+		
+	}
+	
+	public int numOddNodes(int number) {
+		Node x = root;
+		if (x == null) return 0;
+		
+		return numOddNodesHelper(x.left,  0) + numOddNodesHelper(x.right, 0) + 2;
+	}
+	
 	public boolean isValidBST() {
 				
 		if (root == null) return true;

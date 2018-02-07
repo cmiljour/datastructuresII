@@ -49,8 +49,10 @@ public class hw1Driver {
 //			rankTest("bzcwd", "a");
 //			rankTest("bxcwd", "z");
 //			rankTest("a", "z");
-//			floorTest("codazn", "p");
+			floorTest("codazn", "p");
 			floorTest("codazn", "a");
+			floorTest("r", "x");
+			floorTest("z", "x");
 			floorTest("rstuvy", "x");
 //			inverseTest("abcdefg");
 										// add more more test here
@@ -97,7 +99,7 @@ public class hw1Driver {
 		public static void rankTest( String vals, String key ) {
 			
 			// create and populate the table from the input string vals
-			LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
+			LinkedListSTStudy<String,Integer> aList = new LinkedListSTStudy<String,Integer>();
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}
@@ -123,8 +125,8 @@ public class hw1Driver {
 		}
 		//See note about testing inverse function
 		public static void inverseTest(String vals) {
-			LinkedListST<String,Integer> aList = new LinkedListST<String,Integer>();
-			LinkedListST<Integer,String> bList = new LinkedListST<Integer,String>();
+			LinkedListSTStudy<String,Integer> aList = new LinkedListSTStudy<String,Integer>();
+			LinkedListSTStudy<Integer,String> bList = new LinkedListSTStudy<Integer,String>();
 			for (int i=0; i < vals.length(); i++) {
 				aList.put(vals.substring(i, i+1),i);
 			}

@@ -26,44 +26,44 @@ public class hw3Driver {
 				
 			//  label each test case with a comment describing what you are testing for.
 //			
-//			sizeTest("",0);				// test size on an empty ST (symbol table)
-//			sizeTest("dbeac",5);        // test size on a non-empty ST
-//			sizeTest("a", 1);
-//			sizeTest("abcdefghi",9);
-//			putTest("abcde", "01234", "f", "5", "abcdef");
+			sizeTest("",0);				// test size on an empty ST (symbol table)
+			sizeTest("dbeac",5);        // test size on a non-empty ST
+			sizeTest("a", 1);
+			sizeTest("abcdefghi",9);
+			putTest("abcde", "01234", "f", "5", "abcdef");
 			
 //			// middle key test
-//			getTest("abcde", "01234", "c", "2");
-//			// left most key test
-//			getTest("abcde", "01234", "a", "0");
-//			// right most key test
-//			getTest("abcde", "01234", "e", "4");
-//			// null test
-//			getTest("abcde", "01234", "f", "0");
+			getTest("abcde", "01234", "c", "2");
+			// left most key test
+			getTest("abcde", "01234", "a", "0");
+			// right most key test
+			getTest("abcde", "01234", "e", "4");
+			// null test
+			getTest("abcde", "01234", "f", "0");
 			
-//			numLeavesTest("dbeac", "31402", 3);
-//			numLeavesTest("cbaed", "21043", 2);
-//			numLeavesTest("bcdae", "21043", 2);
-//			numLeavesTest("ecdba", "21043", 2);
-//			numLeavesTest("edcba", "21043", 1);
-//			numLeavesTest("hczijbd", "2104398", 3);
-//			numLeavesTest("uvwxyz", "012345", 1);
-//			numLeavesTest("bac", "012", 2);
-//			numLeavesTest("b", "0", 1);
+			numLeavesTest("dbeac", "31402", 3);
+			numLeavesTest("cbaed", "21043", 2);
+			numLeavesTest("bcdae", "21043", 2);
+			numLeavesTest("ecdba", "21043", 2);
+			numLeavesTest("edcba", "21043", 1);
+			numLeavesTest("hczijbd", "2104398", 3);
+			numLeavesTest("uvwxyz", "012345", 1);
+			numLeavesTest("bac", "012", 2);
+			numLeavesTest("b", "0", 1);
 			shortestPathTest("dbfge", "01234", 2);
 			shortestPathTest("cdbe", "0123", 2);
 			shortestPathTest("hapbnv", "012345", 2);
 			shortestPathTest("ngvdhpyceioqaxz", "012345678912345", 3);
 			shortestPathTest("oeubhqyacgirxz", "01234567891234", 3);
 			
-//			deleteTest("ofwagvz","0123456", "w", "2");
-//			deleteTest("ofwagvz", "0123456", "f", "1");
-//			deleteTest("ofwagvz", "0123456", "o", "0");
-//			deleteTest("ofwagvz", "0123456", "z", "6");
-//			deleteTest("ofwagvz", "0123456", "g", "4");
-//			deleteTest("ofwagvzh", "01234567", "o", "0");
-//			deleteTest("abcdefgh", "01234567", "a", "0");
-//			deleteTest("abcdefgh", "01234567", "h", "7");
+			deleteTest("ofwagvz","0123456", "w", "2");
+			deleteTest("ofwagvz", "0123456", "f", "1");
+			deleteTest("ofwagvz", "0123456", "o", "0");
+			deleteTest("ofwagvz", "0123456", "z", "6");
+			deleteTest("ofwagvz", "0123456", "g", "4");
+			deleteTest("ofwagvzh", "01234567", "o", "0");
+			deleteTest("abcdefgh", "01234567", "a", "0");
+			deleteTest("abcdefgh", "01234567", "h", "7");
 
 		}
 

@@ -11,13 +11,28 @@ public class HW3Driver {
 	public static void main(String[] args)
 	{
 		// comment in/out calls to focus on a given ToDo method
-		sizeTests();
-		numLeavesTests();
-		lenShortestPathToNullTests();
-		getTests();
-		deleteTests();
-		putTests();
+		numEvenDepthNodesTests();
+		numOddNodesTest();
+//		sizeTests();
+//		numLeavesTests();
+//		lenShortestPathToNullTests();
+//		getTests();
+//		deleteTests();
+//		putTests();
 	}
+	
+	public static void numEvenDepthNodesTests() {
+		numEvenDepthNodesTest("MFSIPTGR","12345678", 3);	        // test size on an empty symbol table
+		numEvenDepthNodesTest("MFSIPTGORN","0123456789", 4);
+		
+	}
+	
+	public static void numOddNodesTest() {
+
+		numOddNodesTest("MFSIPTGORN","0123456789", 4);
+	}
+	
+	
 	public static void sizeTests() {
 		sizeTest("", 0);	        // test size on an empty symbol table
 		sizeTest("a",1);        // test size on a symbol table of size 1 
@@ -95,6 +110,37 @@ public class HW3Driver {
 	//  test size function.
 	// param vals: all substrings of length 1 are added to the ST
 	// param answer:  the correct value of the ST for the input:vals
+	
+	
+	public static void numEvenDepthNodesTest( String keys, String vals,  int answer ) {
+
+		// create and populate the table from the input string vals
+		BST403<String,String> aTree = from(keys, vals);
+
+		//  do the test
+		int result = aTree.numEvenDepthNodes();
+		//report result
+		if ( result == answer)  // test passes
+			StdOut.format("sizeTest: Correct  String [ %s ] Answer: %d\n", keys,result);
+		else
+			StdOut.format("sizeTest: *Error*  String [ %s ] Answer: %d\n", keys,result);
+	}
+	
+	public static void numOddNodesTest( String keys, String vals,  int answer ) {
+
+		// create and populate the table from the input string vals
+		BST403<String,String> aTree = from(keys, vals);
+
+		//  do the test
+		int result = aTree.numEvenDepthNodes();
+		//report result
+		if ( result == answer)  // test passes
+			StdOut.format("sizeTest: Correct  String [ %s ] Answer: %d\n", keys,result);
+		else
+			StdOut.format("sizeTest: *Error*  String [ %s ] Answer: %d\n", keys,result);
+	}
+	
+	
 	public static void sizeTest( String keys,  int answer ) {
 
 		// create and populate the table from the input string vals

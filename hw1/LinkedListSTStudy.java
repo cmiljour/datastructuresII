@@ -109,40 +109,32 @@ public class LinkedListSTStudy<Key extends Comparable<Key>, Value extends Compar
      *  See if you can write it with only one loop
      */
     public Key secondMaxKey () {
+    	
     	Node x = first;
-    	Key secondMaxKeyResult;
-    	Key maxKeyResult;
+    	if (x == null || x.next == null) return null;
     	
-    	if (x == null) return null;
+    	int maxKeyRank = rank(x.key);
+    	int secondMaxKeyRank = 0;
+    	Key secondMaxKey = x.key;
+    	Key maxKey = x.key;
     	
-    	int initialMaxCmp = x.key.compareTo(x.next.key);
-    	
-    	if (initialMaxCmp < 0) {
-    		maxKeyResult = x.next.key;
-    		secondMaxKeyResult = x.key;
-    	}
-    	
-    	else {
-    		secondMaxKeyResult = x.next.key;
-        	maxKeyResult = x.key;
-    	}
-    	
-    	while ( x != null) {
-    		int cmpSecondMax = x.key.compareTo(secondMaxKeyResult);
-    		int cmpMax = x.key.compareTo(maxKeyResult);
-    		if (cmpSecondMax > 0 && cmpMax < 0) {
-    			secondMaxKeyResult = x.key;
-    		}
-    		if (cmpMax > 0) {
-    			secondMaxKeyResult = maxKeyResult;
-    			maxKeyResult = x.key;
+    	for (x = x.next; x != null; x = x.next) {
+    		int numRank = rank(x.key);
+    		
+    		if (numRank > maxKeyRank) {
+    			secondMaxKeyRank = maxKeyRank;
+    			maxKeyRank = numRank;
+    			secondMaxKey = maxKey;
+    			maxKey = x.key;
     		}
     		
-    		x = x.next;
- 
+    		if (numRank < maxKeyRank && numRank > secondMaxKeyRank) {
+    			secondMaxKeyRank = numRank;
+    			secondMaxKey = x.key;
+    		}
+    		
     	}
-    	
-    	return secondMaxKeyResult; // TODO
+    	return secondMaxKey;
     }
 
 
@@ -172,34 +164,20 @@ public class LinkedListSTStudy<Key extends Comparable<Key>, Value extends Compar
      * it returns null if there is no such key.
      */
     
-    public Key keyHelper(Node x, Key key) {
-    	
-    	if (x == null) return key;
-    	int cmpKey = x.key.compareTo(key);
-    	
-    	if (cmpKey == 0) return x.key;
-    	if (cmpKey > 0) return keyHelper(x.next, key);
-    	if (cmpKey < 0) return keyHelper(x.next, x.key);
-    	
-    	return null;
-    }
-    
     public Key floor (Key key) {
     	
     	Node x = first;
+    	Key floor = null;
+    	
     	if (x == null) return null;
     	
-    	int cmpKey = x.key.compareTo(key);
-    	if (x.next == null && (cmpKey <= 0)) {
-    		return x.key;
+    	for (x = first ; x != null ; x = x.next){
+    		if (x.key.equals(key)) return x.key; 
+    		if (rank(x.key) < rank(key) && floor == null)  floor = x.key;
+    		if (rank(x.key) < rank(key) && rank(x.key) > rank(floor))  floor = x.key;     		
     	}
+    	return floor;
     	
-    	if(x.next == null && cmpKey > 0){
-    		return null;
-    	}
-    	
-    	if (cmpKey > 0) return keyHelper(x.next, key);
-    	else { return keyHelper(x.next, x.key);}
     }
 
     /**
