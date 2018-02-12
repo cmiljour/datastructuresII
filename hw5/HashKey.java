@@ -9,15 +9,15 @@ public class HashKey {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public toString() {
-		
+//	public toString() {
+//		
+//	}
+//	
+	public int customHashCode(Integer key) {
+		return 0;
 	}
-	
-	public hashCode () {
-		
-	}
-	
-	public equals () {
-		
-	}
+//	
+//	public equals () {
+//		
+//	}
 }

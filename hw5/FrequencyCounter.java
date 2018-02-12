@@ -2,6 +2,7 @@ package hw5;
 import stdlib.*;
 import algs34.LinearProbingHashST;
 import algs34.SeparateChainingHashST;
+import hw5.HashKey;
 
 /* ***********************************************************************
  *  Compilation:  javac FrequencyCounter.java
@@ -91,8 +92,8 @@ public class FrequencyCounter {
 
 	public static void main(String[] args) {
 		//int minlen = 2; String file = "data/tinyTale.txt";
-		int minlen = 6; String file = "data/tale.txt";
-		//int minlen = 12; String file = "data/leipzig1M.txt";
+//		int minlen = 6; String file = "data/tale.txt";
+		int minlen = 12; String file = "data/leipzig1M.txt";
 		
 		StdOut.println ("LinearProbingHashST"); testLinearProbingHashST(minlen, file);
 		StdOut.println ("SeparateChainingHashST"); testSeparateChainingHashST(minlen, file);
@@ -106,21 +107,21 @@ public class FrequencyCounter {
 		Stopwatch sw = new Stopwatch();
 		while (!in.isEmpty()) {
 			String key = in.readString();
-			if (key.length() < minlen) continue;
+//			if (key.length() < minlen) continue;
 			if (st.contains(key)) { st.put(key, st.get(key) + 1); }
 			else                  { st.put(key, 1); }
 		}
 		StdOut.println("  put time: " + sw.elapsedTime ());
 
-		sw = new Stopwatch();
-		String max = "";
-		st.put(max, 0);
-		for (String word : st.keys()) {
-			if (st.get(word) > st.get(max))
-				max = word;
-		}
-		StdOut.println("  get time: " + sw.elapsedTime ());
-		StdOut.println("  most frequent word = " + max + " (" + st.get(max) + " times)");
+//		sw = new Stopwatch();
+//		String max = "";
+//		st.put(max, 0);
+//		for (String word : st.keys()) {
+//			if (st.get(word) > st.get(max))
+//				max = word;
+//		}
+//		StdOut.println("  get time: " + sw.elapsedTime ());
+//		StdOut.println("  most frequent word = " + max + " (" + st.get(max) + " times)");
 	}
 	private static void testSeparateChainingHashST (int minlen, String file) {
 		SeparateChainingHashST<String, Integer> st = new SeparateChainingHashST<>();
@@ -129,21 +130,21 @@ public class FrequencyCounter {
 		Stopwatch sw = new Stopwatch();
 		while (!in.isEmpty()) {
 			String key = in.readString();
-			if (key.length() < minlen) continue;
+//			if (key.length() < minlen) continue;
 			if (st.contains(key)) { st.put(key, st.get(key) + 1); }
 			else                  { st.put(key, 1); }
 		}
 		StdOut.println("  put time: " + sw.elapsedTime ());
 
-		sw = new Stopwatch();
-		String max = "";
-		st.put(max, 0);
-		for (String word : st.keys()) {
-			if (st.get(word) > st.get(max))
-				max = word;
-		}
-		StdOut.println("  get time: " + sw.elapsedTime ());
-		StdOut.println("  most frequent word = " + max + " (" + st.get(max) + " times)");
+//		sw = new Stopwatch();
+//		String max = "";
+//		st.put(max, 0);
+//		for (String word : st.keys()) {
+//			if (st.get(word) > st.get(max))
+//				max = word;
+//		}
+//		StdOut.println("  get time: " + sw.elapsedTime ());
+//		StdOut.println("  most frequent word = " + max + " (" + st.get(max) + " times)");
 	}
 	
 
