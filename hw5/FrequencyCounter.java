@@ -12,10 +12,26 @@ public class FrequencyCounter {
 //		int minlen = 6; String file = "data/tale.txt";
 		int minlen = 12; String file = "data/leipzig1M.txt";
 		
-		StdOut.println ("LinearProbingHashST"); testLinearProbingHashST(minlen, file);
+//		StdOut.println ("LinearProbingHashST"); testLinearProbingHashST(minlen, file);
 		StdOut.println ("SeparateChainingHashST"); testSeparateChainingHashST(minlen, file);
 
 	}
+	
+	public double testNumPlusOne(int numberOfKeys) {
+		StdOut.format("Get %s Time", numberOfKeys);
+		SeparateChainingHashST<String, Integer> test = new SeparateChainingHashST<>();
+		int count = 1;
+		int number = numberOfKeys;
+		Stopwatch sw = new Stopwatch();
+		for (String key: test.keys()) {
+			test.put(key, 0);
+			if (count ++ == number) break;
+		
+		StdOut.format("%.4f\n", sw.elapsedTime() );
+		}
+		return sw.elapsedTime();
+	}
+	
 
 	private static void testLinearProbingHashST (int minlen, String file) {
 		LinearProbingHashST<String, Integer> st = new LinearProbingHashST<>();
@@ -98,7 +114,6 @@ public class FrequencyCounter {
 		}
 		
 		StdOut.println("Get Table Time");
-		
 		for (int N = 1024; N < 300000; N = N * 2) {
 			Stopwatch sw = new Stopwatch();
 			for (int r = 1; r<=reps; r++) {
@@ -113,6 +128,22 @@ public class FrequencyCounter {
 			
 			StdOut.format("%.4f\n", sw.elapsedTime() / reps);
 		}
+		
+		
+		StdOut.println("Get 100 Time");
+		SeparateChainingHashST<String, Integer> test100 = new SeparateChainingHashST<>();
+		Stopwatch sw = new Stopwatch();
+		int count = 1;
+		int number = 100;
+		for (String key: st.keys()) {
+			test100.put(key, 0);
+			if (count ++ == 100) break;
+		double hundredTime = sw.elapsedTime();
+		StdOut.format("%.4f\n", sw.elapsedTime() );
+		}
+		
+		
+		
 	}
 	
 
