@@ -23,13 +23,8 @@ import stdlib.*;
 
 import algs41.Graph;
 import algs41.GraphGenerator;
-import algs13.Stack;
-
-import java.util.Arrays;
-import java.util.Collections;
-
 import algs13.Queue;
-import algs41.DepthFirstPaths;;
+
 
 public class CSC403HW6 {
 	int[] eccentricity;  // the eccentricity of each vertex
@@ -57,12 +52,6 @@ public class CSC403HW6 {
 		for (int i = 0; i < eccentricity.length; i++) {
 			bfs(G, i);
 			
-			for (boolean f : marked) {
-				if (f == false) {
-					throw new IllegalArgumentException("Graph is not connected!!!");
-				}
-			}
-			
 			int max = distTo[0];
 			for(int x = 1; x < distTo.length;x++)
 			{
@@ -73,13 +62,10 @@ public class CSC403HW6 {
 			}
 			eccentricity[i] = max;
 			
-			
 			for (int z = 0; z < marked.length;z++) {
 				marked[z] = false;
 			}
 		}
-		
-		
 		
 		diameter = eccentricity[0];
 		radius = eccentricity[0];
@@ -122,30 +108,13 @@ public class CSC403HW6 {
                 }
             }
         }
+        for (boolean f : marked) {
+			if (f == false) {
+				throw new IllegalArgumentException("Graph is not connected!!!");
+			}
+		}
     }
     
-    // breadth-first search from multiple sources
-    private void bfs(Graph G, Iterable<Integer> sources) {
-        Queue<Integer> q = new Queue<Integer>();
-        for (int s : sources) {
-            marked[s] = true;
-            distTo[s] = 0;
-            q.enqueue(s);
-        }
-        while (!q.isEmpty()) {
-            int v = q.dequeue();
-            for (int w : G.adj(v)) {
-                if (!marked[w]) {
-                    edgeTo[w] = v;
-                    distTo[w] = distTo[v] + 1;
-                    marked[w] = true;
-                    q.enqueue(w);
-                }
-            }
-        }
-    }
-	
-
 	// Do not change the following constant time methods
 	public int eccentricity(int v) { return eccentricity[v]; }
 	public int diameter()          { return diameter; }
@@ -159,7 +128,7 @@ public class CSC403HW6 {
 
 //		Graph G = new Graph(new In("data/tinyCG.txt")); // diameter=2, radius=2, every node is a center
 //		Graph G = GraphGenerator.binaryTree (10); // A complete binary tree
-		Graph G = GraphGenerator.path (20); // A path -- diameter=V-1
+		Graph G = GraphGenerator.path (5); // A path -- diameter=V-1
 //		Graph G = GraphGenerator.connected (20, 400); // Random connected graph
 
 		StdOut.println(G);
