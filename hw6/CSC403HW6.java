@@ -20,6 +20,9 @@ import stdlib.*;
 // please document your code to explain your approach
 // If I can't follow what you're doing, you will get reduced (or no) credit
 
+// Cory Miljour
+// Data Structures II - Winter 2018
+// HW 6
 
 import algs41.Graph;
 import algs41.GraphGenerator;
@@ -49,9 +52,12 @@ public class CSC403HW6 {
 		int diameter = Integer.MIN_VALUE;
 		int radius = Integer.MAX_VALUE;
 		
+		// loop through each vertex to determine it's eccentricity
 		for (int i = 0; i < eccentricity.length; i++) {
 			bfs(G, i);
 			
+			
+			//  loop through the distTo array to find the value with greatest distance to vertex
 			int max = distTo[0];
 			for(int x = 1; x < distTo.length;x++)
 			{
@@ -60,16 +66,19 @@ public class CSC403HW6 {
 					max = distTo[x];
 				}
 			}
+			// once max value is found, set the eccentricity for the vertex
 			eccentricity[i] = max;
 			
+			// necessary step to refalsify the marked array  so loop can start over on next eccentricity computation
 			for (int z = 0; z < marked.length;z++) {
 				marked[z] = false;
 			}
 		}
-		
+		// set initial values
 		diameter = eccentricity[0];
 		radius = eccentricity[0];
 		
+		// find the values
 		for (int j : eccentricity) {
 			if (j > diameter) diameter = j;
 			if (j < radius) radius = j;
@@ -88,7 +97,7 @@ public class CSC403HW6 {
 		this.radius   = radius;
 
 	}
-	// breadth-first search from a single source
+	// basic bfs with an addition of a disTo array to keep track of distance from adjacent vertex from source
     private void bfs(Graph G, int s) {
         Queue<Integer> q = new Queue<Integer>();
         for (int v = 0; v < G.V(); v++)
@@ -102,6 +111,7 @@ public class CSC403HW6 {
             for (int w : G.adj(v)) {
                 if (!marked[w]) {
                     edgeTo[w] = v;
+                    // distTO is the key array to find eccentricity!!!
                     distTo[w] = distTo[v] + 1;
                     marked[w] = true;
                     q.enqueue(w);
