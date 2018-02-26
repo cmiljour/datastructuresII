@@ -3,6 +3,7 @@ import stdlib.*;
 import algs13.Queue;
 import algs41.Graph;
 import algs41.GraphGenerator;
+import algs42.Digraph;
 /* ***********************************************************************
  *  Compilation:  javac CC.java
  *  Execution:    java CC filename.txt
@@ -38,9 +39,32 @@ public class CC {
 			}
 		}
 	}
+	
+	public CC(Digraph G) {
+		marked = new boolean[G.V()];
+		id = new int[G.V()];
+		size = new int[G.V()];
+		for (int v = 0; v < G.V(); v++) {
+			if (!marked[v]) {
+				dfs(G, v);
+				count++;
+			}
+		}
+	}
 
 	// depth first search
 	private void dfs(Graph G, int v) {
+		marked[v] = true;
+		id[v] = count;
+		size[count]++;
+		for (int w : G.adj(v)) {
+			if (!marked[w]) {
+				dfs(G, w);
+			}
+		}
+	}
+	
+	private void dfs(Digraph G, int v) {
 		marked[v] = true;
 		id[v] = count;
 		size[count]++;
@@ -85,7 +109,7 @@ public class CC {
 	public int biggestCcSize () {
 		int max = size[0];
 		for (int i : size) {
-			if (size[i] > max) {
+			if (i > max) {
 				max = size[i];
 			}
 		}
@@ -95,7 +119,12 @@ public class CC {
 	
 	
 	public static void main(String[] args) {
-		anotherTest();
+//		Graph G = GraphGenerator.erRandom(100, .50);
+		Digraph G2 = GraphGenerator.erRandomDi(10, .50);
+//		G.toGraphviz("g.png");
+		CC cc = new CC(G2);
+		StdOut.println(cc.biggestCcSize());
+//		anotherTest();
 //		args = new String [] { "10", "5" };
 //		final int V = Integer.parseInt(args[0]);
 //		final int E = Integer.parseInt(args[1]);
@@ -103,34 +132,34 @@ public class CC {
 //		StdOut.println(G);
 
 		//args = new String [] { "data/tinyAG.txt" };
-		args = new String [] { "data/tinyG.txt" };
-		In in = new In(args[0]);
-		Graph G = GraphGenerator.fromIn (in);
-		StdOut.println(G);
-
-		CC cc = new CC(G);
-
-		// number of connected components
-		int M = cc.count();
-		StdOut.println(M + " components");
-
-		// compute list of vertices in each connected component
-		@SuppressWarnings("unchecked")
-		Queue<Integer>[] components = new Queue[M];
-		for (int i = 0; i < M; i++) {
-			components[i] = new Queue<>();
-		}
-		for (int v = 0; v < G.V(); v++) {
-			components[cc.id(v)].enqueue(v);
-		}
-
-		// print results
-		for (int i = 0; i < M; i++) {
-			for (int v : components[i]) {
-				StdOut.print(v + " ");
-			}
-			StdOut.println();
-		}
-		StdOut.println("Biggest CC size is" + " " + cc.biggestCcSize());
+//		args = new String [] { "data/tinyG.txt" };
+//		In in = new In(args[0]);
+//		Graph G = GraphGenerator.fromIn (in);
+//		StdOut.println(G);
+//
+//		CC cc = new CC(G);
+//
+//		// number of connected components
+//		int M = cc.count();
+//		StdOut.println(M + " components");
+//
+//		// compute list of vertices in each connected component
+//		@SuppressWarnings("unchecked")
+//		Queue<Integer>[] components = new Queue[M];
+//		for (int i = 0; i < M; i++) {
+//			components[i] = new Queue<>();
+//		}
+//		for (int v = 0; v < G.V(); v++) {
+//			components[cc.id(v)].enqueue(v);
+//		}
+//
+//		// print results
+//		for (int i = 0; i < M; i++) {
+//			for (int v : components[i]) {
+//				StdOut.print(v + " ");
+//			}
+//			StdOut.println();
+//		}
+//		StdOut.println("Biggest CC size is" + " " + cc.biggestCcSize());
 	}
 }
