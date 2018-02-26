@@ -119,11 +119,14 @@ public class CC {
 	
 	
 	public static void main(String[] args) {
-//		Graph G = GraphGenerator.erRandom(100, .50);
-		Digraph G2 = GraphGenerator.erRandomDi(10, .50);
-//		G.toGraphviz("g.png");
-		CC cc = new CC(G2);
+		Graph G = GraphGenerator.erRandom(100, .01);
+		Digraph G2 = GraphGenerator.erRandomDi(100, .01);
+		G2.toGraphviz("g.png");
+		G.toGraphviz("undirected.png");
+		CC cc = new CC(G);
+		CC cc2 = new CC(G2);
 		StdOut.println(cc.biggestCcSize());
+		StdOut.println(cc2.biggestCcSize());
 //		anotherTest();
 //		args = new String [] { "10", "5" };
 //		final int V = Integer.parseInt(args[0]);
