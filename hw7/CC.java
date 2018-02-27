@@ -119,14 +119,34 @@ public class CC {
 	
 	
 	public static void main(String[] args) {
-		Graph G = GraphGenerator.erRandom(100, .01);
-		Digraph G2 = GraphGenerator.erRandomDi(100, .01);
-		G2.toGraphviz("g.png");
-		G.toGraphviz("undirected.png");
-		CC cc = new CC(G);
-		CC cc2 = new CC(G2);
-		StdOut.println(cc.biggestCcSize());
-		StdOut.println(cc2.biggestCcSize());
+		
+		int sumUndirected = 0;
+		int sumDirected = 0;
+		int reps = 1000;
+		int diAverage;
+		int unAverage;
+		int stopper;
+//		G2.toGraphviz("g.png");
+//		G.toGraphviz("undirected.png");
+//		StdOut.println(cc.biggestCcSize());
+//		StdOut.println(cc2.biggestCcSize());
+		
+		for (int i = 1; i < reps; i ++) {
+			Graph G = GraphGenerator.erRandom(100, .020);
+			Digraph G2 = GraphGenerator.erRandomDi(100, .020);
+			CC cc = new CC(G);
+			CC cc2 = new CC(G2);
+			sumUndirected = cc.biggestCcSize() + sumUndirected; 
+			sumDirected = cc2.biggestCcSize() + sumDirected;
+			
+		}
+		
+		diAverage = sumDirected / reps;
+		unAverage = sumUndirected / reps;
+		stopper = 0;
+		StdOut.println(diAverage);
+		StdOut.println(unAverage);
+		
 //		anotherTest();
 //		args = new String [] { "10", "5" };
 //		final int V = Integer.parseInt(args[0]);
