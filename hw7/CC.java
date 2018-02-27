@@ -126,63 +126,42 @@ public class CC {
 		int diAverage;
 		int unAverage;
 		int stopper;
+		double probability = .06;
 //		G2.toGraphviz("g.png");
 //		G.toGraphviz("undirected.png");
 //		StdOut.println(cc.biggestCcSize());
 //		StdOut.println(cc2.biggestCcSize());
 		
-		for (int i = 1; i < reps; i ++) {
-			Graph G = GraphGenerator.erRandom(100, .020);
-			Digraph G2 = GraphGenerator.erRandomDi(100, .020);
-			CC cc = new CC(G);
-			CC cc2 = new CC(G2);
-			sumUndirected = cc.biggestCcSize() + sumUndirected; 
-			sumDirected = cc2.biggestCcSize() + sumDirected;
+		// Undirected loop
+		for (double p = .000; p < probability; p += .001) {
+			for (int i = 0; i < reps; i ++) {
+				Graph G = GraphGenerator.erRandom(101, p);
+				CC cc = new CC(G);
+				sumUndirected = cc.biggestCcSize() + sumUndirected; 
+			}
+			unAverage = sumUndirected / reps;
+			//StdOut.format("The undirected graph probability of %.3f is %d\n", p, unAverage);
+//			StdOut.format("%.3f\n",p);
+//			StdOut.println(unAverage);
+			sumUndirected = 0;
 			
 		}
 		
-		diAverage = sumDirected / reps;
-		unAverage = sumUndirected / reps;
-		stopper = 0;
-		StdOut.println(diAverage);
-		StdOut.println(unAverage);
+		// Directed loop
+		for (double p = .000; p < probability; p += .001) {
+			for (int i = 0; i < reps; i ++) {
+				Digraph G2 = GraphGenerator.erRandomDi(101, p);
+				CC cc2 = new CC(G2);
+				sumDirected = cc2.biggestCcSize() + sumDirected;
+				
+			}
+			diAverage = sumDirected / reps;
+			//StdOut.format("The directed graph probability of %.3f is %d\n", p, diAverage);
+//			StdOut.format("%.3f\n", p);
+			StdOut.println(diAverage);
+			sumDirected = 0;
+		}
 		
-//		anotherTest();
-//		args = new String [] { "10", "5" };
-//		final int V = Integer.parseInt(args[0]);
-//		final int E = Integer.parseInt(args[1]);
-//		final Graph G = GraphGenerator.simple(V, E);
-//		StdOut.println(G);
-
-		//args = new String [] { "data/tinyAG.txt" };
-//		args = new String [] { "data/tinyG.txt" };
-//		In in = new In(args[0]);
-//		Graph G = GraphGenerator.fromIn (in);
-//		StdOut.println(G);
-//
-//		CC cc = new CC(G);
-//
-//		// number of connected components
-//		int M = cc.count();
-//		StdOut.println(M + " components");
-//
-//		// compute list of vertices in each connected component
-//		@SuppressWarnings("unchecked")
-//		Queue<Integer>[] components = new Queue[M];
-//		for (int i = 0; i < M; i++) {
-//			components[i] = new Queue<>();
-//		}
-//		for (int v = 0; v < G.V(); v++) {
-//			components[cc.id(v)].enqueue(v);
-//		}
-//
-//		// print results
-//		for (int i = 0; i < M; i++) {
-//			for (int v : components[i]) {
-//				StdOut.print(v + " ");
-//			}
-//			StdOut.println();
-//		}
-//		StdOut.println("Biggest CC size is" + " " + cc.biggestCcSize());
+		stopper = 0;
 	}
 }
