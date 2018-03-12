@@ -1,15 +1,13 @@
 package hw7;
+
+// Cory Miljour
+// CSC403W18HW7B
+
 import stdlib.*;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
-import algs13.Queue;
+import algs41.GraphGenerator;
 import algs42.DepthFirstOrder;
 import algs42.Digraph;
-import algs42.DigraphGenerator;
 import algs42.TransitiveClosure;
 
 
@@ -73,56 +71,44 @@ public class KosarajuSharirSCC {
 		return true;
 	}
 	
-	// My code starts here
-	public int ccMaxNumber() {
-		int[] ccMaxArr = new int[id.length];
+	/* My code starts here!! */
+	public int sccMaxNumber() {
+		int[] sccMaxArr = new int[id.length];
 		// use an alternate array to assign component id to an array index value
 		// this makes it easy to do simple addition when running across component id members
 		for (int i : id) {
-			ccMaxArr[i] = ccMaxArr[i] + 1;
+			sccMaxArr[i] = sccMaxArr[i] + 1;
 		}
-		// loop through that array to find max cc membership value
-		int max = ccMaxArr[0];
-		for (int i = 0; i < ccMaxArr.length; i++) {
-			if (ccMaxArr[i] > max) max = ccMaxArr[i];
+		// loop through that array to cc id that has most members
+		int max = sccMaxArr[0];
+		for (int i = 0; i < sccMaxArr.length; i++) {
+			if (sccMaxArr[i] > max) max = sccMaxArr[i];
 		}
 		return max;
 	}
-	// and ends here
+	/* and ends here */
 
 	public static void main(String[] args) {
-		args = new String[] { "data/tinyDG.txt" };
-//		args = new String[] { "data/mediumDG.txt" };
-
-		In in = new In(args[0]);
-		Digraph G = DigraphGenerator.fromIn(in);
-		G.toGraphviz ("directed.png");
-		KosarajuSharirSCC scc = new KosarajuSharirSCC(G);
-		int sccMax = scc.ccMaxNumber();
-		if (!scc.check(G)) throw new Error ();
-
-		// number of connected components
-		int M = scc.count();
-		StdOut.println(M + " components");
-
-		// compute list of vertices in each strong component
-		@SuppressWarnings("unchecked")
-		Queue<Integer>[] components = new Queue[M];
-		for (int i = 0; i < M; i++) {
-			components[i] = new Queue<>();
-		}
-		for (int v = 0; v < G.V(); v++) {
-			components[scc.id(v)].enqueue(v);
-		}
-
-		// print results
-		for (int i = 0; i < M; i++) {
-			for (int v : components[i]) {
-				StdOut.print(v + " ");
+		/* my code starts here!! */
+		int sum = 0;
+		int reps = 1000;
+		int average;
+		double probability = .06;
+		
+		for (double p = .000; p < probability; p += .001) {
+			for (int i = 0; i < reps; i ++) {
+				Digraph G2 = GraphGenerator.erRandomDi(101, p);
+				KosarajuSharirSCC scc = new KosarajuSharirSCC(G2);
+				sum = scc.sccMaxNumber() + sum;
+				
 			}
-			StdOut.println();
+			average = sum / reps;
+			StdOut.format("The directed graph probability of %.3f yields largest strongly connected component size of %d\n", p, average);
+//			StdOut.format("%.3f\n", p);
+//			StdOut.println(diAverage);
+			// set sum back to 0 to get ready for next loop
+			sum = 0;
 		}
-
+		/* my code ends here */
 	}
-
 }
