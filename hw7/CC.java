@@ -1,26 +1,12 @@
 package hw7;
+
+//Cory Miljour
+//CSC403W18HW7B
+
 import stdlib.*;
-import algs13.Queue;
 import algs41.Graph;
 import algs41.GraphGenerator;
 import algs42.Digraph;
-/* ***********************************************************************
- *  Compilation:  javac CC.java
- *  Execution:    java CC filename.txt
- *  Dependencies: Graph.java StdOut.java Queue.java
- *  Data files:   http://algs4.cs.princeton.edu/41undirected/tinyG.txt
- *
- *  Compute connected components using depth first search.
- *  Runs in O(E + V) time.
- *
- *  %  java CC tinyG.txt
- *  3 components
- *  0 1 2 3 4 5 6
- *  7 8
- *  9 10 11 12
- *
- *************************************************************************/
-
 
 public class CC {
 	private final boolean[] marked;   // marked[v] = has vertex v been marked?
@@ -106,6 +92,7 @@ public class CC {
 	}
 	
 	/* this is my code!!! */
+	// find biggest component size 
 	public int biggestCcSize () {
 		int max = size[0];
 		for (int i : size) {
@@ -119,49 +106,32 @@ public class CC {
 	
 	
 	public static void main(String[] args) {
-		
-		int sumUndirected = 0;
-		int sumDirected = 0;
+	
+	/* this is my code!!! */
+		int sum = 0;
 		int reps = 1000;
-		int diAverage;
-		int unAverage;
-		int stopper;
+		int average;
 		double probability = .06;
-//		G2.toGraphviz("g.png");
+
 //		G.toGraphviz("undirected.png");
 //		StdOut.println(cc.biggestCcSize());
-//		StdOut.println(cc2.biggestCcSize());
+
 		
-		// Undirected loop
+		// create testing loop of 1000 tests increasing by .001 after each loop
 		for (double p = .000; p < probability; p += .001) {
+			// 1000 tests loop
 			for (int i = 0; i < reps; i ++) {
 				Graph G = GraphGenerator.erRandom(101, p);
 				CC cc = new CC(G);
-				sumUndirected = cc.biggestCcSize() + sumUndirected; 
+				sum = cc.biggestCcSize() + sum; 
 			}
-			unAverage = sumUndirected / reps;
-			//StdOut.format("The undirected graph probability of %.3f is %d\n", p, unAverage);
+			average = sum / reps;
+			StdOut.format("The undirected graph probability of %.3f yields largest component size of %d\n", p, average);
 //			StdOut.format("%.3f\n",p);
 //			StdOut.println(unAverage);
-			sumUndirected = 0;
+			sum = 0;
 			
 		}
-		
-		// Directed loop
-		for (double p = .000; p < probability; p += .001) {
-			for (int i = 0; i < reps; i ++) {
-				Digraph G2 = GraphGenerator.erRandomDi(101, p);
-				CC cc2 = new CC(G2);
-				sumDirected = cc2.biggestCcSize() + sumDirected;
-				
-			}
-			diAverage = sumDirected / reps;
-			//StdOut.format("The directed graph probability of %.3f is %d\n", p, diAverage);
-//			StdOut.format("%.3f\n", p);
-			StdOut.println(diAverage);
-			sumDirected = 0;
-		}
-		
-		stopper = 0;
 	}
+	/* my code ends here... */
 }
